@@ -1,15 +1,33 @@
 import React from "react";
 import "../css/game.css";
+import NewsArticle from "./NewsArticle"
 
 export default class GameContainer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+          articleText : null
       };
+      this.getNews();
     }
 
-  
+    getNews = () => {    
+        fetch('/api/fetchnews')
+        .then(res => res.json())
+        .then(
+            NewsObj => {
+                console.log(NewsObj)
+                this.setState({articleText: NewsObj.articles[0].title});
+            }
+        );
+      }
+
+    updateNewsArticle = (newArticleText) => {
+        this.setState({articleText: newArticleText});
+      };
+    
     render() {
+        let articleToDisplay = this.state.articleText
         return(
             <div>
                 <section className="game-container game-div">
@@ -22,7 +40,7 @@ export default class GameContainer extends React.Component {
                     <div className="right-half">
                         <article>
                             <h1>Right Half</h1>
-                            <p>If your knees aren't green by the end of the day, you ought to seriously re-examine your life.</p>
+                            <p>{articleToDisplay}</p>
                         </article>
                     </div>
                 </section>

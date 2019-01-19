@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 const dotevn = require('dotenv').config();
 // libraries
@@ -96,7 +94,6 @@ server.listen(port, function() {
 
 
 
->>>>>>> a02630047215b28e4b73a23bdb9521bcef03c49a
 
 
 
