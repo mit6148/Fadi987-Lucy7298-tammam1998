@@ -10,45 +10,45 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-        userInfo: null
-    };
-}
-
-componentDidMount() {
-    this.getUser();
-}
-
-logout = () => {
-  this.setState({
       userInfo: null
-  })
-};
+    };
+  }
 
-getUser = () => {    
-  fetch('/api/whoami')
-  .then(res => res.json())
-  .then(
-      userObj => {
-        console.log(userObj)
+  componentDidMount() {
+    this.getUser();
+  }
+
+  logout = () => {
+    this.setState({
+      userInfo: null
+    })
+  };
+
+  getUser = () => {
+    fetch('/api/whoami')
+      .then(res => res.json())
+      .then(
+        userObj => {
+          console.log(userObj)
           if (userObj._id !== undefined) {
-              this.setState({ 
-                  userInfo: userObj
-              });
+            this.setState({
+              userInfo: userObj
+            });
           } else {
-              this.setState({ 
-                  userInfo: null
-              });
+            this.setState({
+              userInfo: null
+            });
           }
-      }
-  );
-}
+        }
+      );
+  }
   render() {
     return (
       <div>
         <NavBar
-         userInfo={this.state.userInfo}
-         logout={this.logout}
-          />
+          userInfo={this.state.userInfo}
+          logout={this.logout}
+        />
         <Switch>
           <Route exact path="/" component={GameContainer} />
           <Route exact path="/race" component={GameContainer} />

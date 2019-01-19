@@ -17,14 +17,16 @@ export default class GameContainer extends React.Component {
     }
 
     getNews = () => {
+        
         fetch('/api/fetchnews')
             .then(res => res.json())
             .then(
                 NewsObj => {
+                    const rand = Math.floor((Math.random() * NewsObj.articles.length));
                     console.log(NewsObj)
                     this.setState({
-                        articleText: (NewsObj.articles[0].title),
-                        articleList: (NewsObj.articles[0].title).split(" ")
+                        articleText: (NewsObj.articles[rand].title),
+                        articleList: (NewsObj.articles[rand].title).split(" ")
                     });
                 }
             );
@@ -32,7 +34,14 @@ export default class GameContainer extends React.Component {
 
     updateTextSoFar = () => {
         //function to increase counter by 1
-        this.setState({ textSoFar: this.state.textSoFar + 1 });
+        if (this.state.textSoFar == this.state.articleList.length - 1){
+            this.setState({textSoFar: 0});
+            this.getNews()
+        } else{ 
+            this.setState({ textSoFar: this.state.textSoFar + 1 });
+        }
+        
+
 
     }
 
@@ -41,16 +50,14 @@ export default class GameContainer extends React.Component {
         return (
             <div>
                 <section className="game-container game-div">
-                    <div className="left-half">
-                        <article>
+                    <div className="left-half" >
                             <TextGraphics
                                 typedTextSoFar={typedTextSoFar}
                             />
-                        </article>
                     </div>
                     <div className="right-half">
                         <article>
-                            <h1>Right Half</h1>
+                            <h1>Type The News</h1>
                             <TextDisplay
                                 articleToDisplay={this.state.articleText}
                             />
