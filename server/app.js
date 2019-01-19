@@ -45,6 +45,10 @@ http.listen(3000, () => {
   console.log(`Listening on port 3000 and looking in folder ${publicPath}`);
 });
 
+app.get(["/race"], (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
+});
+
 
 
 

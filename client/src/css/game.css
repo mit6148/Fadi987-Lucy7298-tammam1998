@@ -1,0 +1,22 @@
+.game-container {
+    display: flex;
+  }
+  
+.left-half {
+background-color: #ff9e2c;
+flex: 1;
+padding: 1rem;
+}
+
+.right-half {
+background-color: #b6701e;
+flex: 2;
+padding: 1rem;
+}
+.game-div > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vh;
+  }
