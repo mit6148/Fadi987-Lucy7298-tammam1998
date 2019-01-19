@@ -1,6 +1,7 @@
 import React from "react";
-import "../css/game.css";
-export default class GameContainer extends React.Component {
+import "../../css/game.css";
+
+export default class TextInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {

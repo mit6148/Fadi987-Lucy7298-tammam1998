@@ -1,6 +1,6 @@
 import React from "react";
-import "../css/game.css";
-export default class GameContainer extends React.Component {
+import "../../css/game.css";
+export default class TestDisplay extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
