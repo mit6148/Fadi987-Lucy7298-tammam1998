@@ -13,7 +13,9 @@ export default class GameContainer extends React.Component {
             articleList: [], //The article reprsented as a List
             textSoFar: 0, // counter for the articleList for typed words
         };
+        this.getNews = this.getNews.bind(this);
         this.getNews();
+
     }
 
     getNews = () => {
@@ -23,10 +25,14 @@ export default class GameContainer extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    console.log(NewsObj)
+                    console.log(contentList);
+                    let contentList = (NewsObj.articles[rand].content).split(" ").slice(0,-3);
+                
+                    console.log(contentList);
+                    const contentText = contentList.join(" ");
                     this.setState({
-                        articleText: (NewsObj.articles[rand].title),
-                        articleList: (NewsObj.articles[rand].title).split(" ")
+                        articleText: contentText,
+                        articleList: contentList
                     });
                 }
             );
