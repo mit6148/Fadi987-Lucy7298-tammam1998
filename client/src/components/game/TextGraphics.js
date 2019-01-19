@@ -12,7 +12,7 @@ export default class TextGraphics extends React.Component {
     render() {
         return(
             <div>
-                FILL HERE 
+                {this.props.typedTextSoFar.join(" ")}
             </div>
         );
     }

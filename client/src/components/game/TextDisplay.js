@@ -10,8 +10,8 @@ export default class TestDisplay extends React.Component {
   
     render() {
         return(
-            <div>
-                FILL HERE 
+            <div className = "text-display-box">
+                {this.props.articleToDisplay}
             </div>
         );
     }
