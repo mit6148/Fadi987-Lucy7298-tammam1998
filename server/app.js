@@ -1,15 +1,21 @@
 const express = require("express");
 const path = require("path");
 const dotevn = require('dotenv').config();
+const session = require('express-session');
 
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-
+const db = require('./db');
+const passport = require('./passport');
 const publicPath = path.resolve(__dirname, "..", "client", "dist");
 
 
 app.use(express.static(publicPath));
+
+app.get('/', function (req, res){
+  res.sendFile('index.html', {root: 'client/dist'})
+})
 
 // set up sessions
 app.use(session({
