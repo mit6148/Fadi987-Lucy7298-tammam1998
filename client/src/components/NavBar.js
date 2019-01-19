@@ -8,6 +8,7 @@ class NavBar extends Component {
 
     render() {
         return (
+        <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="navbar-brand">NewsRacer</div>
                 <div className="navbar-nav">
@@ -24,6 +25,7 @@ class NavBar extends Component {
                         )}
                 </div>
             </nav>
+            </div>
         );
     }
 }
