@@ -8,23 +8,23 @@ class NavBar extends Component {
 
     render() {
         return (
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div className="navbar-brand">NewsRacer</div>
-                <div className="navbar-nav">
-                    <Link to="/" className="nav-item nav-link">Home</Link>
-                        { this.props.userInfo === null ? (
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+                    <div className="navbar-brand">NewsRacer</div>
+                    <div className="navbar-nav">
+                        <Link to="/" className="nav-item nav-link">Home</Link>
+                        {this.props.userInfo === null ? (
                             <a className="nav-item nav-link" href="/auth/google">Login</a>
                         ) : (
-                            <React.Fragment>
-                                <Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>
-                                <a className="nav-item nav-link" href="/logout" onClick={this.props.logout}>Logout</a>
-                                <Link to={"/race"} className="nav-item nav-link">Race</Link>
-                            </React.Fragment>
-                            
-                        )}
-                </div>
-            </nav>
+                                <React.Fragment>
+                                    <Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>
+                                    <a className="nav-item nav-link" href="/logout" onClick={this.props.logout}>Logout</a>
+                                    <Link to={"/race"} className="nav-item nav-link">Race</Link>
+                                </React.Fragment>
+
+                            )}
+                    </div>
+                </nav>
             </div>
         );
     }
