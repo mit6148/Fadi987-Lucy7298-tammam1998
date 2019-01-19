@@ -19,7 +19,7 @@ class NavBar extends Component {
                             <React.Fragment>
                                 <Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>
                                 <a className="nav-item nav-link" href="/logout" onClick={this.props.logout}>Logout</a>
-                                <Link to={"/Race"} className="nav-item nav-link">Race</Link>
+                                <Link to={"/race"} className="nav-item nav-link">Race</Link>
                             </React.Fragment>
                             
                         )}
