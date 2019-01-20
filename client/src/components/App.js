@@ -50,7 +50,7 @@ class App extends React.Component {
           logout={this.logout}
         />
         <Switch>
-          <Route exact path="/" component={GameContainer} />
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/race" component={GameContainer} />
         </Switch>
       </div>

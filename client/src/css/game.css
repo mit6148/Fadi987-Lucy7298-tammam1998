@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+
+@font-face {
+  font-family: 'oldNewsPaper';
+  src: url('../public/fonts/OldNewspaperTypes.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 .game-container {
     display: flex;
@@ -15,8 +24,9 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
+
 .text-graphics{
-  font-family: 'Anton';
+  font-family: 'oldNewsPaper';
   margin-top : 30px;
   vertical-align: text-top;
 }
@@ -38,7 +48,7 @@ flex: 2;
 
 .display-box-font{
   color: white;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Old Standard TT', serif;
 }
 
 .text-display-box{
