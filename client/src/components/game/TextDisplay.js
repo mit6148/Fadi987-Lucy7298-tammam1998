@@ -1,5 +1,9 @@
 import React from "react";
 import "../../css/game.css";
+
+/*
+props : articleToDisplay
+*/
 export default class TestDisplay extends React.Component {
     constructor(props) {
       super(props);
@@ -7,11 +11,12 @@ export default class TestDisplay extends React.Component {
       };
     }
 
+
   
     render() {
         return(
-            <div>
-                FILL HERE 
+            <div className = "text-display-box display-box-font">
+                <h4>{this.props.articleToDisplay}</h4>
             </div>
         );
     }

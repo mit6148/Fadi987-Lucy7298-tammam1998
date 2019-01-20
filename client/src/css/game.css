@@ -1,22 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+
+@font-face {
+  font-family: 'oldNewsPaper';
+  src: url('../public/fonts/OldNewspaperTypes.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .game-container {
     display: flex;
+    position: relative;
   }
   
 .left-half {
-background-color: #ff9e2c;
-flex: 1;
-padding: 1rem;
+  flex: 1;
+  padding: 1rem;
+  background-image: url('../public/newsbackground.jpg');
+  background-size: cover;
+  justify-content: left;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.text-graphics{
+  font-family: 'oldNewsPaper';
+  margin-top : 30px;
+  vertical-align: text-top;
 }
 
 .right-half {
-background-color: #b6701e;
+background-image: url('../public/righthalf.jpg');
+background-size: cover;
+justify-content: center;
+background-repeat: no-repeat;
+background-position: 50% 50%;
 flex: 2;
-padding: 1rem;
 }
 .game-div > div {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     height: 100vh;
     width: 100vh;
   }
+
+.display-box-font{
+  color: white;
+  font-family: 'Old Standard TT', serif;
+}
+
+.text-display-box{
+
+    margin-top: 5em;
+    box-sizing: border-box;
+    width: 90vh;
+    height : 40vh;
+    padding: 1rem;
+    border: 5px black;
+    border-radius: 15px;
+}
