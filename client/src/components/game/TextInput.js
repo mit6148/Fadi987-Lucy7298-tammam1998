@@ -4,6 +4,7 @@ import "../../css/game.css";
 /*
 props : handleInput(): updates state in parent by increasing the counter for corrent words
         currentWord: The word that should be typed currently
+        updateTypedWord()
 */
 
 export default class TextInput extends React.Component {
@@ -20,12 +21,14 @@ export default class TextInput extends React.Component {
         let inpVal = event.target.value
         if (inpVal.substr(-1) == ' ' && this.props.currentWord == this.state.inputValue) {
             this.setState({ inputValue: '' });
+            inpVal = ''
             this.props.handleInput()
         } else {
             this.setState({
                 inputValue: inpVal
             });
         }
+        this.props.updateTypedWord(inpVal)
     }
 
 

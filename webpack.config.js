@@ -51,14 +51,11 @@ module.exports = {
     hot: true,
     proxy: {
       '/api': 'http://localhost:3000',
-<<<<<<< HEAD
-      '/auth': 'http://localhost:3000'
-=======
-      '/user': 'http://localhost:3000',
       '/auth': 'http://localhost:3000',
+      '/user': 'http://localhost:3000',
       '/race': 'http://localhost:3000',
+      '/ranking': 'http://localhost:3000',
       '/logout': 'http://localhost:3000',
->>>>>>> 203f2a288f90426cd402f14d36265901cbb74e97
     }
   }
 };

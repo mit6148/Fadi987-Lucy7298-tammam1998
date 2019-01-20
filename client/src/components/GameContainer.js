@@ -12,6 +12,7 @@ export default class GameContainer extends React.Component {
             articleText: '', //article represent as a string
             articleList: [], //The article reprsented as a List
             textSoFar: 0, // counter for the articleList for typed words
+            currentTypedWord: '',
         };
         this.getNews = this.getNews.bind(this);
         this.getNews();
@@ -27,7 +28,6 @@ export default class GameContainer extends React.Component {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
                     console.log(contentList);
                     let contentList = (NewsObj.articles[rand].content).split(" ").slice(0,-3);
-                
                     console.log(contentList);
                     const contentText = contentList.join(" ");
                     this.setState({
@@ -46,13 +46,16 @@ export default class GameContainer extends React.Component {
         } else{ 
             this.setState({ textSoFar: this.state.textSoFar + 1 });
         }
-        
+    }
 
-
+    updateCurrentTypedWord = (newWord) => {
+        //function to increase counter by 1
+        this.setState({currentTypedWord: newWord});
     }
 
     render() {
         let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
+        typedTextSoFar.push(this.state.currentTypedWord);
         return (
             <div>
                 <section className="game-container game-div">
@@ -69,7 +72,8 @@ export default class GameContainer extends React.Component {
                             />
                             <TextInput
                                 handleInput={this.updateTextSoFar}
-                                currentWord={this.state.articleList[this.state.textSoFar]} />
+                                currentWord={this.state.articleList[this.state.textSoFar]}
+                                updateTypedWord = {this.updateCurrentTypedWord} />
                         </article>
                     </div>
                 </section>

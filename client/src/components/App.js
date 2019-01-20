@@ -3,6 +3,7 @@ import "../css/app.css";
 import GameContainer from "./GameContainer";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
+import Ranking from "./Ranking";
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
@@ -52,6 +53,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/race" component={GameContainer} />
+          <Route exact path="/ranking" component={Ranking} />
         </Switch>
       </div>
     );
