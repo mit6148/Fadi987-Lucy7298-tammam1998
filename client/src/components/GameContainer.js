@@ -4,6 +4,7 @@ import NewsArticle from "./NewsArticle"
 import TextDisplay from "./game/TextDisplay"
 import TextGraphics from "./game/TextGraphics"
 import TextInput from "./game/TextInput"
+import Timer from "./game/Timer"
 
 export default class GameContainer extends React.Component {
     constructor(props) {
@@ -13,6 +14,9 @@ export default class GameContainer extends React.Component {
             articleList: [], //The article reprsented as a List
             textSoFar: 0, // counter for the articleList for typed words
             currentTypedWord: '',
+            startDate: new Date(),
+            seconds: 0,
+            minutes: 0,
         };
         this.getNews = this.getNews.bind(this);
         this.getNews();
@@ -41,8 +45,10 @@ export default class GameContainer extends React.Component {
     updateTextSoFar = () => {
         //function to increase counter by 1
         if (this.state.textSoFar == this.state.articleList.length - 1){
-            this.setState({textSoFar: 0});
+            this.setState({textSoFar: 0,
+                            startDate: new Date()});
             this.getNews()
+            
         } else{ 
             this.setState({ textSoFar: this.state.textSoFar + 1 });
         }
@@ -53,9 +59,34 @@ export default class GameContainer extends React.Component {
         this.setState({currentTypedWord: newWord});
     }
 
-    render() {
+    componentDidMount() {
+        this.intervalID = setInterval(
+          () => this.tick(),
+          1000
+        );
+      }
+
+    tick() {
+
+        let endDate = new Date();
+        let sec = Math.floor((endDate - this.state.startDate) / 1000);
+        let min = Math.floor(sec/60);
+        sec = sec - min*60;
+
+        this.setState({
+        seconds: sec,
+        minutes: min
+        });
+
+      }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+      }
+
+    render() {  
         let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
         typedTextSoFar.push(this.state.currentTypedWord);
+
         return (
             <div>
                 <section className="game-container game-div">
@@ -74,6 +105,10 @@ export default class GameContainer extends React.Component {
                                 handleInput={this.updateTextSoFar}
                                 currentWord={this.state.articleList[this.state.textSoFar]}
                                 updateTypedWord = {this.updateCurrentTypedWord} />
+                            <Timer 
+                            seconds = {this.state.seconds}
+                            minutes = {this.state.minutes}
+                            />
                         </article>
                     </div>
                 </section>
