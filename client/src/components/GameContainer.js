@@ -19,6 +19,7 @@ export default class GameContainer extends React.Component {
             seconds: 0,
             minutes: 0,
             gameStatus: 1, //0 is waiting to start, 1 is on going, 2 is gameover 
+            speed: 0,
         };
         this.getNews = this.getNews.bind(this);
         this.getNews();
@@ -51,6 +52,7 @@ export default class GameContainer extends React.Component {
             gameStatus: 1,
             seconds: 0,
             minutes: 0,
+            speed: 0,
         });
         this.getNews();
     }
@@ -61,6 +63,7 @@ export default class GameContainer extends React.Component {
             if (this.state.gameStatus === 1) { //if ongoing game ended set state to gameover
                 this.setState({ gameStatus: 2,
                                 textSoFar: this.state.textSoFar + 1 });
+                this.speedCalc();
 
             }
         } else {
@@ -84,7 +87,9 @@ export default class GameContainer extends React.Component {
             let sec = Math.floor((endDate - this.state.startDate) / 1000);
             let min = Math.floor(sec / 60);
             sec = sec - min * 60;
+            
             if (this.state.gameStatus === 1){
+                this.speedCalc();
                 this.setState({
                     seconds: sec,
                     minutes: min});
@@ -95,13 +100,24 @@ export default class GameContainer extends React.Component {
             clearInterval(this.intervalID);
         }
 
+        speedCalc = () =>{
+            if (this.state.textSoFar === 0){
+                this.setState({speed: 0});
+            } else{
+                this.setState({speed: Math.floor(this.state.textSoFar/(this.state.minutes + this.state.seconds/60))});
+            }
+
+
+        }
+
         render() {
             let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
             typedTextSoFar.push(this.state.currentTypedWord);
             let gameFinished = null;
             let blurComponent = '';
             if (this.state.gameStatus === 2){
-                gameFinished = <GameOver newGame = {this.newGame} /> ;
+                gameFinished = <GameOver newGame = {this.newGame} 
+                                        speed = {this.state.speed}/> ;
                 blurComponent = ' blur'
             }
             return (
@@ -125,10 +141,12 @@ export default class GameContainer extends React.Component {
                                 <Timer
                                     seconds={this.state.seconds}
                                     minutes={this.state.minutes}
+                                    speed = {this.state.speed}
                                 />
                             </article>
                         </div>
                     </section>
+                    
                     {gameFinished}
                 </div>
             );
