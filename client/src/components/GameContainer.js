@@ -63,8 +63,7 @@ export default class GameContainer extends React.Component {
             if (this.state.gameStatus === 1) { //if ongoing game ended set state to gameover
                 this.setState({ gameStatus: 2,
                                 textSoFar: this.state.textSoFar + 1 });
-                this.speedCalc();
-
+                this.updateTickStates();
             }
         } else {
                 this.setState({ textSoFar: this.state.textSoFar + 1 });
@@ -80,20 +79,22 @@ export default class GameContainer extends React.Component {
             this.intervalID = setInterval(
                 () => this.tick(), 1000);
         }
-
-        tick() {
-
+        
+        updateTickStates = () => {
             let endDate = new Date();
             let sec = Math.floor((endDate - this.state.startDate) / 1000);
             let min = Math.floor(sec / 60);
             sec = sec - min * 60;
-            
+            this.setState({
+                seconds: sec,
+                minutes: min});
+            this.speedCalc();
+        }
+
+        tick() {
             if (this.state.gameStatus === 1){
-                this.speedCalc();
-                this.setState({
-                    seconds: sec,
-                    minutes: min});
-                }
+                this.updateTickStates()
+            }
 
         }
         componentWillUnmount() {
@@ -101,7 +102,7 @@ export default class GameContainer extends React.Component {
         }
 
         speedCalc = () =>{
-            if (this.state.textSoFar === 0){
+            if (this.state.seconds === 0 && this.state.minutes === 0){
                 this.setState({speed: 0});
             } else{
                 this.setState({speed: Math.floor(this.state.textSoFar/(this.state.minutes + this.state.seconds/60))});
