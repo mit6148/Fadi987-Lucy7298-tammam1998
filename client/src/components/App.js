@@ -45,14 +45,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar
+        {/* <NavBar
           userInfo={this.state.userInfo}
           logout={this.logout}
-        />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/race" component={GameContainer} />
-        </Switch>
+        /> */}
+        <HomePage userInfo= {this.state.userInfo}
+         logout= {this.logout} />
       </div>
     );
   }

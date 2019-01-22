@@ -9,6 +9,10 @@
   font-style: normal;
 }
 
+.nav {
+  position: absolute;
+  top: 0px;
+}
 
 .game-container {
     display: flex;
@@ -53,7 +57,7 @@ flex: 2;
 
 .text-display-box{
 
-    margin-top: 5em;
+    margin-top: 12em;
     box-sizing: border-box;
     width: 90vh;
     height : 40vh;
