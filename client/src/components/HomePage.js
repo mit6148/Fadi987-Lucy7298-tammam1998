@@ -2,7 +2,7 @@ import React from "react";
 import "../css/homepage.css";
 import image2 from "../images/Newspaper.jpg"
 import GameContainer from "./GameContainer";
-import Navbar from "./Navbar"
+import NavBar from "./NavBar"
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class HomePage extends React.Component {
             return(
                 <div>
                     <div className = "welcome">
-                        <header>
+                        <header className = "sec_header">
                             NewsRacer
                         </header>
                         <img src = {image2}/>
@@ -27,7 +27,7 @@ export default class HomePage extends React.Component {
                         </ul>
                     </div>
                     <div id = "About" className = "about">
-                        <header>
+                        <header className = "sec_header">
                             About...
                         </header>
                         <h1 className = 'description'>Put something here</h1>
@@ -38,7 +38,7 @@ export default class HomePage extends React.Component {
         else {
             return (
                 <div>
-                    <Navbar userInfo={this.props.userInfo}
+                    <NavBar userInfo={this.props.userInfo}
                             logout={this.props.logout}/>
                     <GameContainer/>
                 </div>
