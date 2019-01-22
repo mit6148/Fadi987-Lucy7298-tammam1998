@@ -4,6 +4,7 @@ import "../../css/game.css";
 /*
 props : handleInput(): updates state in parent by increasing the counter for corrent words
         currentWord: The word that should be typed currently
+        updateTypedWord()
 */
 
 export default class TextInput extends React.Component {
@@ -18,14 +19,16 @@ export default class TextInput extends React.Component {
     updateInputValue(event) {
 
         let inpVal = event.target.value
-        if (inpVal.substr(-1) == ' ' && this.props.currentWord == this.state.inputValue) {
+        if (inpVal.substr(-1) == ' ' && this.props.currentWord === this.state.inputValue) {
             this.setState({ inputValue: '' });
+            inpVal = ''
             this.props.handleInput()
         } else {
             this.setState({
                 inputValue: inpVal
             });
         }
+        this.props.updateTypedWord(inpVal)
     }
 
 
@@ -35,7 +38,7 @@ export default class TextInput extends React.Component {
                 <input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"
                     value={this.state.inputValue} onChange={event => this.updateInputValue(event)} />
                 <div className="input-group-append">
-                    <button type="button" className="btn btn-dark" onClick={this.props.handleInput}>@example.com</button>
+                    <button type="button" className="btn btn-dark" onClick={this.props.handleInput}>NextWord</button>
                 </div>
             </div>
         );

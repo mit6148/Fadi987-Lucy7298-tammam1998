@@ -1,0 +1,51 @@
+.game-over-div{
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+}
+
+.game-over-button{
+    background:#1AAB8A;
+    color:#fff;
+    background-color: rgba(0,0,0, 0.4);
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    
+
+  }
+  .game-over-button:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+  .game-over-button:before,.game-over-button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  .game-over-button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .game-over-button:hover:before,.game-over-button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  

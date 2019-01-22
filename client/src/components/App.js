@@ -3,6 +3,7 @@ import "../css/app.css";
 import GameContainer from "./GameContainer";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
+import Ranking from "./Ranking";
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
