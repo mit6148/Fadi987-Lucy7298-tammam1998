@@ -1,7 +1,6 @@
 {
   "name": "type-racer",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -51,5 +50,15 @@
     "webpack-dev-middleware": "^3.5.0",
     "webpack-dev-server": "^3.1.14",
     "webpack-hot-middleware": "^2.24.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mit6148/Fadi987-Lucy7298-tammam1998.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/mit6148/Fadi987-Lucy7298-tammam1998/issues"
+  },
+  "homepage": "https://github.com/mit6148/Fadi987-Lucy7298-tammam1998#readme",
+  "description": ""
 }
