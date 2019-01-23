@@ -3,7 +3,9 @@ const express = require('express');
 const connect = require('connect-ensure-login');
 var request = require('request');
 
+
 // models
+const GameSchema = require("../models/game"); 
 const User = require('../models/user');
 
 const router = express.Router();
@@ -32,34 +34,55 @@ router.get('/whoami', function(req, res) {
 });
 
 
-router.get('/user', function(req, res) {
-    User.findOne({ _id: req.query._id }, function(err, user) {
-        res.send(user);
-    });
-});
-/*
-router.post(
-    '/story',
-    connect.ensureLoggedIn(),
-    function(req, res) {
-        const newStory = new Story({
-            'creator_id': req.user._id,
-            'creator_name': req.user.name,
-            'content': req.body.content,
-        });
-  
-        newStory.save(function(err, story) {
-            User.findOne({ _id: req.user._id },function(err, user) {
-                user.last_post = req.body.content;
-                user.save(); // this is OK, because the following lines of code are not reliant on the state of user, so we don't have to shove them in a callback. 
-                // configure socketio
-                const io = req.app.get('socketio');
-                io.emit("post", { creator_id: story.id, creator_name: user.name, content: req.body.content });
+
+router.put('/user', function(req, res) {
+            User.findOneAndUpdate({_id: req.user._id}, {$push: {'all_games': {'score': req.body.score, 'time_stamp': req.body.timestamp}}}, {new: true}, function(err, user) {
+                if (!err) {
+                    console.log('success');
+                    if (req.body.score > user.best_score || !user.best_score){
+                        user.update({$set: {'best_score': req.body.score}}, function(err, user) {
+                            if (!err) {
+                                console.log('success again!'); 
+                            } else {
+                                console.log('oh no crycrycry'); 
+                                console.log(err);
+                            }
+                        })
+                    }
+                } else {
+                    console.log('something went wrong');
+                    console.log(err); 
+                }
             });
-            if (err) console.log(err);
-        });
-        res.send({});
-  }
-);*/
+        })
+
+router.get('/user', function(req, res) { 
+            User.find({_id: req.query._id}, function(err, user) {
+                if (!err) {
+                    res.send(user);
+                } else {
+                    res.write("fail");
+                }
+            });
+        }); 
+
+router.get('/all', function(req, res) {
+    User.find({}, function(err, users) {
+        res.send(users); 
+    }); 
+}); 
+
+
+router.get('/high_scores', function(req, res) {
+    User.aggregate([{ $sort : { best_score : -1 } }, {$limit: 10}], function(err, sorted) {
+        if (err) {
+            console.log(err); 
+        } else {
+            console.log("success");
+            res.send(sorted); 
+        }
+    })
+}); 
+
 
 module.exports = router;
