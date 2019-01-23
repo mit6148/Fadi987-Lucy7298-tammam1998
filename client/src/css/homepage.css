@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+
+@font-face {
+  font-family: 'oldNewsPaper';
+  src: url('../public/fonts/OldNewspaperTypes.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+*{
+    font-family: "oldNewsPaper";
+}
+
+.welcome li {
+    display: inline-block;
+    font-size: 80px;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.welcome ul {
+    position: absolute;
+    z-index: 2;
+    top: 70%;
+    width: 100%;
+    /* transform: translate(-50%, -50%); */
+}
+
+.welcome img {
+    width: 100%;
+    filter: blur(8px);
+}
+
+
+.sec_header {
+    font-size: 100px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-family: "oldNewsPaper";
+    z-index: 1;
+}
+
+.description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* body{
+    background: white;
+    padding-top: 10px;
+  }  */
+
+.welcome {
+    position: relative;
+}
+
+.about {
+    position: relative;
+    height: 800px;
+}
+
+
+h1.moving {
+    margin: 10px 0 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 30em;
+    animation: type 4s steps(60, end); 
+    margin: 0 auto;
+  }
+
+.welcome  a {
+     color: black; 
+  }
+
+.welcome a:hover{
+      color: black;
+      text-decoration: none;
+  }
+/*   
+  p:nth-child(2){
+    animation: type2 8s steps(60, end);
+  }
+  
+  span{
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes type{ 
+    from { width: 0; } 
+    to {width : 20;}
+  } 
+  
+  @keyframes type2{
+    0%{width: 0;}
+    50%{width: 0;}
+    100%{ width: 100; } 
+  } 
+  
+  @keyframes blink{
+    to{opacity: .0;}
+  }
+  
+  ::selection{
+    background: black;
+  } */

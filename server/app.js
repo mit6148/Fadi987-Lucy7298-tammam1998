@@ -89,7 +89,7 @@ const server = http.Server(app);
 const io = socketio(server);
 app.set('socketio', io);
 
-server.listen(port, function() {
+server.listen(process.env.PORT || port, function() {
   console.log('Server running on port: ' + port);
 });
 
