@@ -64,8 +64,6 @@ class App extends React.Component {
             <Route exact path='/race' component={GameContainer} />
             <Route exact path='/ranking' component={Ranking} />
         </Switch>
-        <HomePage userInfo= {this.state.userInfo}
-         logout= {this.logout} />
       </div>
     );
   }
