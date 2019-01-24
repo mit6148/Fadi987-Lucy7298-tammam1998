@@ -7,6 +7,7 @@ export default class GameOver extends React.Component {
       super(props);
       this.state = {
       };
+      this.props.sendScore(); 
     }
 
     render() {

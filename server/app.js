@@ -22,6 +22,7 @@ const publicPath = path.resolve(__dirname, "..", "client", "dist");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 // set up sessions
 app.use(session({
   secret: 'session-secret',
