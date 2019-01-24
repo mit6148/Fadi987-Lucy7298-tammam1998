@@ -14,7 +14,7 @@ class NavBar extends Component {
                     <div className="navbar-nav">
                         <Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>
                         <a className="nav-item nav-link" href="/logout" onClick={this.props.logout}>Logout</a>
-                        <Link to={"/Race"} className="nav-item nav-link">Race</Link>
+                        <Link to={"/race"} className="nav-item nav-link">Race</Link>
                         {/* <Link to="/" className="nav-item nav-link">Home</Link> */
                         /* {this.props.userInfo === null ? (
                             <a className="nav-item nav-link" href="/auth/google">Login</a>

@@ -44,17 +44,32 @@ class App extends React.Component {
       );
   }
   render() {
+    if (this.state.userInfo === null) {
+      return(
+      <div>
+        <HomePage userInfo= {this.state.userInfo}
+          logout= {this.logout} />
+      </div>
+      );
+    } else{
     return (
       <div>
-        {/* <NavBar
-          userInfo={this.state.userInfo}
-          logout={this.logout}
-        /> */}
+        <div>
+          <NavBar userInfo={this.state.userInfo}
+                  logout={this.logout}/>
+        </div>
+        <Switch>
+            <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
+            <Route exact path='/profile/:user' component={GameContainer} />
+            <Route exact path='/race' component={GameContainer} />
+            <Route exact path='/ranking' component={Ranking} />
+        </Switch>
         <HomePage userInfo= {this.state.userInfo}
          logout= {this.logout} />
       </div>
     );
   }
 }
+}
 
-export default App;
+export default withRouter(App);
