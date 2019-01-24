@@ -13,8 +13,8 @@ export default class Header extends React.Component {
   
     render() {
         return(
-            <div className = "text-display-box display-box-font">
-                <h4>{this.props.articleToDisplay}</h4>
+            <div class = "headerdiv">
+              <h1 class = "header">Leaderboard</h1>
             </div>
         );
     }

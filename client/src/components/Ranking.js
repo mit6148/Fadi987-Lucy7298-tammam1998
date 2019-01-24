@@ -1,8 +1,8 @@
 import React from "react";
 import "../css/ranking.css";
 
-import Header from "./header"; 
-import TopUser from "./top_user"; 
+import Header from "./ranking/header"; 
+import TopUser from "./ranking/top_user"; 
 
 export default class Ranking extends React.Component {
     constructor(props) {
@@ -27,6 +27,7 @@ export default class Ranking extends React.Component {
     render() {
         return(
             <div>
+                <Header/>
             </div>
         );
     }

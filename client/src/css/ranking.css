@@ -1,0 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css?family=News+Cycle');
+
+.header {
+  color: black;
+  font-family: 'News Cycle', sans-serif;
+  text-align: center; 
+  letter-spacing: 1rem; 
+  font-size: 5rem; 
+  
+}
+
+.headerdiv {
+    padding: 2rem 0rem 2rem 0rem;  
+}
