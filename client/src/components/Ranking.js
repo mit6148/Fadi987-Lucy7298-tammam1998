@@ -8,7 +8,7 @@ export default class Ranking extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          high_scores: null,
+          high_scores: [],
       };
       this.getHighScores = this.getHighScores.bind(this)
       this.getHighScores()
@@ -28,6 +28,15 @@ export default class Ranking extends React.Component {
         return(
             <div>
                 <Header/>
+
+                {this.state.high_scores.map((userObject, index) => (
+                                <TopUser
+                                    key={`User_${userObject._id}`}
+                                    rank = {index + 1}
+                                    name = {userObject.name}
+                                    score={userObject.best_score}
+                                />
+                                ))}
             </div>
         );
     }
