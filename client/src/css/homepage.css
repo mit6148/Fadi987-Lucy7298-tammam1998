@@ -9,15 +9,6 @@
   font-style: normal;
 }
 
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-
-*{
-    font-family: "oldNewsPaper";
-}
-
 .welcome li {
     display: inline-block;
     font-size: 80px;

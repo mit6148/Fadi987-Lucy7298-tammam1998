@@ -13,10 +13,10 @@ export default class Header extends React.Component {
   
     render() {
         return(
-        <div>
-            <span class = "b"><p>{this.props.rank} </p> </span>
-            <span class = "b"> <p>{this.props.name} </p></span>
-            <span class = "b"> <p>{this.props.score}</p></span>
+        <div class = "topuserwords">
+            <span><p>{this.props.rank} </p> </span>
+            <span> <p>{this.props.name} </p></span>
+            <span> <p>{this.props.score}</p></span>
         </div>
         );
     }

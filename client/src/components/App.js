@@ -4,6 +4,7 @@ import GameContainer from "./GameContainer";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
 import Ranking from "./Ranking";
+import UserProfile from "./UserProfile"; 
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
@@ -60,7 +61,7 @@ class App extends React.Component {
         </div>
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
-            <Route exact path='/profile/:user' component={GameContainer} />
+            <Route exact path='/profile/:user' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
             <Route exact path='/race' component={GameContainer} />
             <Route exact path='/ranking' component={Ranking} />
         </Switch>

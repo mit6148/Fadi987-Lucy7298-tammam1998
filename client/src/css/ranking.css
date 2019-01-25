@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=News+Cycle');
 
-.header {
+.ranking-header {
   color: black;
   font-family: 'News Cycle', sans-serif;
   text-align: center; 
@@ -15,14 +15,18 @@
 }
 
 
-p {
+.topuserwords {
   font-family: 'News Cycle', sans-serif;
   font-size: 2rem; 
   text-align: center; 
 }
 
-span.b {
+.topuserwords span {
   display: inline-block;
   width: 33%; 
   padding: 5px;
+  
+}
+.topuserwords span + span{
+  border-left: 1px solid #2f2f2f; 
 }
