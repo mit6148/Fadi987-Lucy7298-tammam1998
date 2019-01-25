@@ -113,6 +113,19 @@ export default class GameContainer extends React.Component {
 
         }
 
+        sendScore = () => {
+            console.log("hihihi"); 
+            console.log(this.state.speed); 
+            const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
+            fetch('/api/user', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+        };
+
         render() {
             let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
             typedTextSoFar.push(this.state.currentTypedWord);
@@ -120,7 +133,8 @@ export default class GameContainer extends React.Component {
             let blurComponent = '';
             if (this.state.gameStatus === 2){
                 gameFinished = <GameOver newGame = {this.newGame} 
-                                        speed = {this.state.speed}/> ;
+                                        speed = {this.state.speed}
+                                        sendScore = {this.sendScore}/> ;
                 blurComponent = ' blur'
             }
             return (
