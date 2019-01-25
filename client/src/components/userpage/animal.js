@@ -13,12 +13,14 @@ import unicorn from "../../public/unicorn.png";
 
 export default class Animal extends React.Component {
     constructor(props) {
+      console.log('hihih'); 
       super(props);
       this.state = {
           animal: null, 
       };
 
       this.getAnimal = this.getAnimal.bind(this); 
+      console.log(this.state.animal); 
       this.getAnimal(); 
     }
 
@@ -61,12 +63,12 @@ export default class Animal extends React.Component {
   
     render() {
         return(
-            <div class = "headerdiv">
-            <div class = "animal_left" ><img src = {this.state.animal}/></div>
-            <div class = "animal_right">
-                <div class = "animal-right-div">
-                <h1 class = "header">Hi, Yunxing Liao</h1>
-                <h1 class = "header">You're as fast as a {String(this.state.animal)}!</h1>
+            <div className = "headerdiv">
+            <div className = "animal_left" ><img src = {this.state.animal}/></div>
+            <div className = "animal_right">
+                <div className = "animal-right-div">
+                <h1 className = "header">Hi, Yunxing Liao</h1>
+                <h1 className = "header">You're as fast as a {String(this.state.animal)}!</h1>
                 </div>
             </div>
             </div>
