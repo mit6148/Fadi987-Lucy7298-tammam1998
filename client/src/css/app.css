@@ -23,5 +23,41 @@ body {
 
 }
 
+.navbar{
+    background:#2f2f2f;
+    text-align: center;
+}
 
+.navbar-nav .nav-link {
+    color: #f9f7f1;
+}
 
+/* Border X get width  */
+div.borderXwidth .nav-link:before, div.borderXwidth .nav-link:after
+{
+    position: absolute;
+    opacity: 0;
+    width: 0%;
+    height: 2px;
+    content: '';
+    background: #f9f7f1;
+    transition: all 0.3s;
+}
+
+div.borderXwidth .nav-link:before
+{
+    left: 0px;
+    top: 0px;
+}
+
+div.borderXwidth .nav-link:after
+{
+    right: 0px;
+    bottom: 0px;
+}
+
+div.borderXwidth .nav-link:hover:before, div.borderXwidth .nav-link:hover:after
+{
+    opacity: 1;
+    width: 100%;
+}
