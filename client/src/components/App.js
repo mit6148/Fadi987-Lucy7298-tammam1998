@@ -47,14 +47,14 @@ class App extends React.Component {
       );
   }
   render() {
-    /*if (this.state.userInfo === null) {
+    if (this.state.userInfo === null) {
       return(
       <div>
         <HomePage userInfo= {this.state.userInfo}
           logout= {this.logout} />
       </div>
       );
-    } else{*/
+    } else{
     return (
       <div>
         <div className="head">
@@ -77,6 +77,7 @@ class App extends React.Component {
       </div>
     );
   }
+}
 }
 
 export default withRouter(App);
