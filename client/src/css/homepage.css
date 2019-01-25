@@ -9,14 +9,14 @@
   font-style: normal;
 }
 
-@keyframes typing {
+/*@keyframes typing {
     from { width: 0 }
     to { width: 100% }
   }
 
 *{
     font-family: "oldNewsPaper";
-}
+}*/
 
 .welcome li {
     display: inline-block;

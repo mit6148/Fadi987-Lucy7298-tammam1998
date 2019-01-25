@@ -9,12 +9,17 @@ class NavBar extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div className="navbar-brand">NewsRacer</div>
-                    <div className="navbar-nav">
-                        <Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>
-                        <a className="nav-item nav-link" href="/logout" onClick={this.props.logout}>Logout</a>
-                        <Link to={"/race"} className="nav-item nav-link">Race</Link>
+                <nav className="navbar navbar-expand-lg">
+
+                <div className = "navbar-inner collapse navbar-collapse">
+                    <ul className="nav navbar-nav mx-auto">
+                        <li className="nav-item "><Link to={"/profile"} className="nav-link borderXwidth">Profile</Link></li>
+                        <li className="nav-item"><Link to={"/race"} className="nav-link">Race</Link></li>
+                        <li className="nav-item"><Link to={"/ranking"} className="nav-link">LeaderBoard</Link></li>
+                        <li className="nav-item"><a className="nav-link " href="/logout" onClick={this.props.logout}>Logout</a></li>
+                        {/*<Link to={"/profile/" + this.props.userInfo._id} className="nav-item nav-link">Profile</Link>*/}
+                        
+                        
                         {/* <Link to="/" className="nav-item nav-link">Home</Link> */
                         /* {this.props.userInfo === null ? (
                             <a className="nav-item nav-link" href="/auth/google">Login</a>
@@ -26,6 +31,7 @@ class NavBar extends Component {
                                 </React.Fragment>
 
                             )} */}
+                    </ul>
                     </div>
                 </nav>
             </div>

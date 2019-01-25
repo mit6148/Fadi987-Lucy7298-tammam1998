@@ -1,8 +1,6 @@
 import React from "react";
 import "../css/homepage.css";
 import image2 from "../images/Newspaper.jpg"
-import GameContainer from "./GameContainer";
-import NavBar from "./NavBar"
 
 export default class HomePage extends React.Component {
     constructor(props) {

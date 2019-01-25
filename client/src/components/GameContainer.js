@@ -1,11 +1,13 @@
 import React from "react";
 import "../css/game.css";
+import "../css/newspaper.css";
 import NewsArticle from "./NewsArticle"
 import TextDisplay from "./game/TextDisplay"
 import TextGraphics from "./game/TextGraphics"
 import TextInput from "./game/TextInput"
 import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
+
 
 export default class GameContainer extends React.Component {
     constructor(props) {
@@ -64,7 +66,7 @@ export default class GameContainer extends React.Component {
                 this.setState({ gameStatus: 2,
                                 textSoFar: this.state.textSoFar + 1 });
                 this.updateTickStates();
-            }
+            } 
         } else {
                 this.setState({ textSoFar: this.state.textSoFar + 1 });
             }
@@ -111,20 +113,6 @@ export default class GameContainer extends React.Component {
 
         }
 
-        sendScore = () => {
-            console.log("hihihi"); 
-            console.log(this.state.speed); 
-            const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
-            fetch('/api/user', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-        };
-    
-
         render() {
             let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
             typedTextSoFar.push(this.state.currentTypedWord);
@@ -132,13 +120,13 @@ export default class GameContainer extends React.Component {
             let blurComponent = '';
             if (this.state.gameStatus === 2){
                 gameFinished = <GameOver newGame = {this.newGame} 
-                                        speed = {this.state.speed}
-                                        sendScore = {this.sendScore}/> ;
+                                        speed = {this.state.speed}/> ;
                 blurComponent = ' blur'
             }
             return (
                 <div>
                     <section className={"game-container game-div" + blurComponent}>
+                    
                         <div className="left-half" >
                             <TextGraphics
                                 typedTextSoFar={typedTextSoFar}

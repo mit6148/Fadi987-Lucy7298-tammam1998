@@ -4,6 +4,8 @@ import GameContainer from "./GameContainer";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
 import Ranking from "./Ranking";
+import  "../css/newspaper.css"
+
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
@@ -44,19 +46,26 @@ class App extends React.Component {
       );
   }
   render() {
-    if (this.state.userInfo === null) {
+    /*if (this.state.userInfo === null) {
       return(
       <div>
         <HomePage userInfo= {this.state.userInfo}
           logout= {this.logout} />
       </div>
       );
-    } else{
+    } else{*/
     return (
       <div>
-        <div>
-          <NavBar userInfo={this.state.userInfo}
-                  logout={this.logout}/>
+        <div className="head">
+           <div className="headerobjectswrapper">
+                  <header>News Racer</header>
+            </div>
+        
+
+          <div className = "subhead">
+            <NavBar userInfo={this.state.userInfo}
+                    logout={this.logout}/>
+          </div>
         </div>
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
@@ -67,7 +76,6 @@ class App extends React.Component {
       </div>
     );
   }
-}
 }
 
 export default withRouter(App);
