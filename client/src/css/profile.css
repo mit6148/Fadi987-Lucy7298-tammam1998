@@ -1,0 +1,106 @@
+
+
+.header {
+  color: black;
+  text-align: center; 
+  letter-spacing: .5rem; 
+  font-size: 4rem; 
+  font-weight: 900;
+  
+}
+
+.subheaderdiv {
+    padding: 3rem 0rem 2rem 0rem;  
+    text-align: center; 
+  
+}
+
+.headerdiv {
+    padding: 3rem 0rem 2rem 0rem;  
+    text-align: center; 
+}
+
+
+
+
+p {
+  font-size: 2rem; 
+  text-align: center; 
+  color: white; 
+}
+
+.bigstat{
+  font-size: 3rem; 
+  font-weight: bold; 
+  margin-bottom: 2rem; 
+}
+
+.userstat {
+  text-align: center;  
+  background-color: black; 
+}
+
+span.b {
+  display: inline-block;
+  width: 40%; 
+  text-align: center; 
+}
+
+hr {
+  background-color: black;
+  border: 0 none;
+  color: black;
+  height: 5px;
+}
+
+.animal_left {
+  display: inline-block; 
+  width: 49%; 
+}
+
+.animal_right {
+  display: inline-block; 
+  width: 49%; 
+  vertical-align: middle;  
+}
+
+.animal_right_div{
+  height: 300px 
+}
+
+#gamesplayedfont {
+  font-weight: 500;
+  font-size: 3rem; 
+}
+
+.gamerecorddiv {  
+    text-align: center; 
+}
+
+.gamerecord {
+  display: inline-block; 
+  width: 33%; 
+  vertical-align: middle
+}
+
+.black{
+  color: black  
+}
+
+.subheaderdiv .header:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 50%;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}
+
+.subheaderdiv .header:after{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 50%;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}

@@ -1,5 +1,6 @@
 import React from "react";
-import "../css/userprofiles.css";
+import "../css/profile.css";
+import "../css/newspaper.css";
 
 
 export default class Ranking extends React.Component {
@@ -14,8 +15,16 @@ export default class Ranking extends React.Component {
   
     render() {
         return(
-            <div>
+        <div class = "head">
+            <div class = "animal_left"><img src="./public/rabbit.png" height = "300" width="300"/></div>
+            <div class = "animal_right">
+                <div class = "animal-right-div">
+                <h1 class = "header">Hi, Yunxing Liao</h1>
+                <h1 class = "header">You're as fast as a bird!</h1>
+                </div>
             </div>
+        </div>
+    
         );
     }
 }
