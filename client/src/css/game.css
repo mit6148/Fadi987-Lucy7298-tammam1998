@@ -36,7 +36,7 @@
   vertical-align: text-top;
 }
 
-.right-half {
+.middle-half {
 justify-content: center;
 flex: 2;
 }
@@ -49,23 +49,37 @@ flex: 2;
 
 .display-box-font{
   color: #2f2f2f;;
-  font-family: 'oldNewsPaper';
 
 }
 
 .text-display-box{
-
-    margin-top: 8em;
+   font-family: 'oldNewsPaper';
+    margin-top: 3em;
+    margin-bottom: 1em;
     box-sizing: border-box;
     width: 90vh;
     height : 40vh;
     padding: 1rem;
-    border: 5px black;
-    border-radius: 15px;
+    border: 2px #2f2f2f solid;
+
 }
 
 .blur{
   filter: blur(8px);
   -webkit-filter: blur(8px);
+}
+
+.right-half {
+  flex: 0.5;
+  font-size: 14px;
+  line-height: 20px;
+  width: 17.5%;
+  padding: 0 1% 0 1%;
+  margin-bottom: 50px;
+  transition: all .7s;
+  justify-content: center;
+  vertical-align: center;
+  border-left: 2px #2f2f2f dashed;
+
 }
 

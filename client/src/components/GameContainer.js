@@ -63,71 +63,74 @@ export default class GameContainer extends React.Component {
         //function to increase counter by 1
         if (this.state.textSoFar === this.state.articleList.length - 1) {
             if (this.state.gameStatus === 1) { //if ongoing game ended set state to gameover
-                this.setState({ gameStatus: 2,
-                                textSoFar: this.state.textSoFar + 1 });
+                this.setState({
+                    gameStatus: 2,
+                    textSoFar: this.state.textSoFar + 1
+                });
                 this.updateTickStates();
-            } 
+            }
         } else {
-                this.setState({ textSoFar: this.state.textSoFar + 1 });
-            }
+            this.setState({ textSoFar: this.state.textSoFar + 1 });
+        }
+    }
+
+    updateCurrentTypedWord = (newWord) => {
+        //function to increase counter by 1
+        this.setState({ currentTypedWord: newWord });
+    }
+
+    componentDidMount() {
+        this.intervalID = setInterval(
+            () => this.tick(), 1000);
+    }
+
+    updateTickStates = () => {
+        let endDate = new Date();
+        let sec = Math.floor((endDate - this.state.startDate) / 1000);
+        let min = Math.floor(sec / 60);
+        sec = sec - min * 60;
+        this.setState({
+            seconds: sec,
+            minutes: min
+        });
+        this.speedCalc();
+    }
+
+    tick() {
+        if (this.state.gameStatus === 1) {
+            this.updateTickStates()
         }
 
-        updateCurrentTypedWord = (newWord) => {
-            //function to increase counter by 1
-            this.setState({ currentTypedWord: newWord });
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
+    speedCalc = () => {
+        if (this.state.seconds === 0 && this.state.minutes === 0) {
+            this.setState({ speed: 0 });
+        } else {
+            this.setState({ speed: Math.floor(this.state.textSoFar / (this.state.minutes + this.state.seconds / 60)) });
         }
 
-        componentDidMount() {
-            this.intervalID = setInterval(
-                () => this.tick(), 1000);
-        }
-        
-        updateTickStates = () => {
-            let endDate = new Date();
-            let sec = Math.floor((endDate - this.state.startDate) / 1000);
-            let min = Math.floor(sec / 60);
-            sec = sec - min * 60;
-            this.setState({
-                seconds: sec,
-                minutes: min});
-            this.speedCalc();
-        }
 
-        tick() {
-            if (this.state.gameStatus === 1){
-                this.updateTickStates()
-            }
+    }
+    
+    sendScore = () => {
+        console.log("hihihi"); 
+        console.log(this.state.speed); 
+        const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
+        fetch('/api/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+    };
 
-        }
-        componentWillUnmount() {
-            clearInterval(this.intervalID);
-        }
-
-        speedCalc = () =>{
-            if (this.state.seconds === 0 && this.state.minutes === 0){
-                this.setState({speed: 0});
-            } else{
-                this.setState({speed: Math.floor(this.state.textSoFar/(this.state.minutes + this.state.seconds/60))});
-            }
-
-
-        }
-
-        sendScore = () => {
-            console.log("hihihi"); 
-            console.log(this.state.speed); 
-            const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
-            fetch('/api/user', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-        };
-
-        render() {
-            let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
+    render() {
+        let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
             typedTextSoFar.push(this.state.currentTypedWord);
             let gameFinished = null;
             let blurComponent = '';
@@ -139,33 +142,37 @@ export default class GameContainer extends React.Component {
             }
             return (
                 <div>
-                    <h4 className="header">Type The News</h4>
+                    <h2 className="head" style={{ marginTop: "20px" }}>Type The News</h2>
                     <section className={"game-container game-div" + blurComponent}>
-                    
+    
                         <div className="left-half collumn" >
                             <TextGraphics
                                 typedTextSoFar={typedTextSoFar}
                             />
                         </div>
-                        <div className="right-half">
+                        <div className="middle-half">
                             <article>
-                                
+    
                                 <TextDisplay
                                     articleToDisplay={this.state.articleText}
                                 />
                                 <TextInput
-                                    handleInput={this.updateTextSoFar}
-                                    currentWord={this.state.articleList[this.state.textSoFar]}
-                                    updateTypedWord={this.updateCurrentTypedWord} />
-                                <Timer
-                                    seconds={this.state.seconds}
-                                    minutes={this.state.minutes}
-                                    speed = {this.state.speed}
-                                />
+                                handleInput={this.updateTextSoFar}
+                                currentWord={this.state.articleList[this.state.textSoFar]}
+                                updateTypedWord={this.updateCurrentTypedWord} />
                             </article>
                         </div>
+                        <div className="right-half collumn">
+                            
+                            <Timer
+                                seconds={this.state.seconds}
+                                minutes={this.state.minutes}
+                                speed={this.state.speed}
+                            />
+                        </div>
+    
                     </section>
-                    
+    
                     {gameFinished}
                 </div>
             );
