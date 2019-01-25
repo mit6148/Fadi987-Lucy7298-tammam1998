@@ -80,6 +80,7 @@ export default class GameContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.getNews();
         this.intervalID = setInterval(
             () => this.tick(), 1000);
     }
@@ -117,8 +118,6 @@ export default class GameContainer extends React.Component {
     }
     
     sendScore = () => {
-        console.log("hihihi"); 
-        console.log(this.state.speed); 
         const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
         fetch('/api/user', {
             method: 'PUT',
@@ -138,10 +137,11 @@ export default class GameContainer extends React.Component {
                 gameFinished = <GameOver newGame = {this.newGame} 
                                         speed = {this.state.speed}
                                         sendScore = {this.sendScore}/> ;
-                blurComponent = ' blur'
+                blurComponent = 'blur'
             }
             return (
                 <div>
+                    <div className = {blurComponent}>
                     <h2 className="head" style={{ marginTop: "20px" }}>Type The News</h2>
                     <section className={"game-container game-div" + blurComponent}>
     
@@ -172,7 +172,7 @@ export default class GameContainer extends React.Component {
                         </div>
     
                     </section>
-    
+                    </div>
                     {gameFinished}
                 </div>
             );
