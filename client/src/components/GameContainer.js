@@ -139,16 +139,17 @@ export default class GameContainer extends React.Component {
             }
             return (
                 <div>
+                    <h4 className="header">Type The News</h4>
                     <section className={"game-container game-div" + blurComponent}>
                     
-                        <div className="left-half" >
+                        <div className="left-half collumn" >
                             <TextGraphics
                                 typedTextSoFar={typedTextSoFar}
                             />
                         </div>
                         <div className="right-half">
                             <article>
-                                <h1>Type The News</h1>
+                                
                                 <TextDisplay
                                     articleToDisplay={this.state.articleText}
                                 />

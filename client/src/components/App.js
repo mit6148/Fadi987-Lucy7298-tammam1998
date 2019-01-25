@@ -62,12 +62,12 @@ class App extends React.Component {
                   <header>News Racer</header>
             </div>
         
-
-          <div className = "">
+      </div>
+          <div>
             <NavBar userInfo={this.state.userInfo}
                     logout={this.logout}/>
           </div>
-        </div>
+  
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
             <Route exact path='/profile/:user' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
