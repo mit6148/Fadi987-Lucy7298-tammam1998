@@ -63,7 +63,7 @@ class App extends React.Component {
             </div>
         
 
-          <div className = "subhead">
+          <div className = "">
             <NavBar userInfo={this.state.userInfo}
                     logout={this.logout}/>
           </div>
