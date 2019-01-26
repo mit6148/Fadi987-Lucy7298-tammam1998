@@ -15,8 +15,7 @@ export default class UserProfile extends React.Component {
   
     render() {
         return(
-            //<Animal best_score = {this.props.best_score}/>
-            pass
+            <Animal userInfo = {this.props.userInfo}/>
     
         );
     }
