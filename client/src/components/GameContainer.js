@@ -8,6 +8,7 @@ import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import io from 'socket.io-client';
 import { userInfo } from "os";
+const dotevn = require('dotenv').config();
 
  /*
   GameObj{
@@ -22,7 +23,7 @@ export default class GameContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.socket = io('http://localhost:3000');
+        this.socket = io(process.env.PORT || 'http://localhost:3000');
 
         this.socket.on("start_game", () =>{
             console.log("client recieved news");

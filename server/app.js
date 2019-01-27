@@ -183,7 +183,6 @@ io.sockets.on('connection', function (socket) {
     socket.leave(currRoom);
     console.log(rooms)
     currRoom = socket.id;
-    socket.join(socket.id)
     let oldRoom = currRoom;
     if(!(oldRoom in rooms)){
       console.log("room deleted" + oldRoom)
