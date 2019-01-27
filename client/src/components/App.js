@@ -26,9 +26,7 @@ class App extends React.Component {
   }
 
   logout = () => {
-    this.setState({
-      userInfo: null
-    })
+    fetch('/logout')
   };
 
   getUser = () => {
