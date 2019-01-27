@@ -13,29 +13,13 @@
   
 }
 
-.headerdiv {
-    padding: 3rem 0rem 2rem 0rem;  
+.headerdiv2 {
+    padding: 3rem 0rem 5rem 0rem;  
     text-align: center; 
-    background-color: aliceblue; 
+    background-color:lightskyblue;  
+    margin-top: 3rem; 
 }
 
-
-
-.bigstat{
-  font-weight: bold; 
-  margin-bottom: 2rem; 
-}
-
-.userstat {
-  text-align: center;  
-  background-color: black; 
-}
-
-span.b {
-  display: inline-block;
-  width: 40%; 
-  text-align: center; 
-}
 
 
 .animal_left {
@@ -72,25 +56,26 @@ span.b {
   color: black  
 }
 
-.subheaderdiv .header:before{
-    border-top: 1px solid #2f2f2f;
-    content: '';
-    width: 50%;
-    height: 7px;
-    display: block;
-    margin: 0 auto;
-}
-
-.subheaderdiv .header:after{
-    border-top: 1px solid #2f2f2f;
-    content: '';
-    width: 50%;
-    height: 7px;
-    display: block;
-    margin: 0 auto;
-}
-
 img.resize{
   max-width: 50%;
   max-height: 50%;
+}
+
+.flexcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: black; 
+  height: 18rem; 
+}
+
+.flexcontains {
+  width: 30%; 
+}
+
+.stattext {
+  text-align: center; 
+  color: white; 
+  padding-bottom: 1rem; 
 }
