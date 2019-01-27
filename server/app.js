@@ -35,7 +35,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get(['/profile/:user'], function (req, res) {
+app.get(['/profile'], function (req, res) {
   res.sendFile(path.join(__dirname, '../socket/dist', 'index.html'));
 });
 
