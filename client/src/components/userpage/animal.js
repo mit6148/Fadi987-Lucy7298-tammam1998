@@ -54,7 +54,7 @@ export default class Animal extends React.Component {
 
     }
 
-    componentWillMount () {      
+    componentDidMount () {      
         this.getAnimal = this.getAnimal.bind(this); 
         this.getAnimal(); 
 
