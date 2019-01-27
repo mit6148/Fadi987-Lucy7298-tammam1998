@@ -35,7 +35,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get(['/profile/:user'], function (req, res) {
+app.get(['/profile'], function (req, res) {
   res.sendFile(path.join(__dirname, '../socket/dist', 'index.html'));
 });
 
@@ -83,17 +83,20 @@ app.use(function(err, req, res, next) {
 });
 
 // port config
-const port = 3000; // config variable
+const port = process.env.PORT || 3000; // config variable
 const server = http.Server(app);
 
+server.listen( port, function() {
+  console.log('Server running on port: ' + port);
+});
+
 /////////////////////// socket stuff //////////////////
+
+
+
 const io = socketio(server);
 app.set('socketio', io);
 
-
-server.listen(process.env.PORT || port, function() {
-  console.log('Server running on port: ' + port);
-});
 
 let allGameRooms = new Map();
 let closedRooms = new Map();
@@ -181,9 +184,7 @@ io.sockets.on('connection', function (socket) {
     let rooms = io.sockets.adapter.rooms;
     console.log("user left")
     socket.leave(currRoom);
-    console.log(rooms)
     currRoom = socket.id;
-    socket.join(socket.id)
     let oldRoom = currRoom;
     if(!(oldRoom in rooms)){
       console.log("room deleted" + oldRoom)

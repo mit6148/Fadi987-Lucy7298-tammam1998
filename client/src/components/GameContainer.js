@@ -8,7 +8,6 @@ import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import io from 'socket.io-client';
 import { userInfo } from "os";
-
  /*
   GameObj{
     username: String,
@@ -22,7 +21,7 @@ export default class GameContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.socket = io('http://localhost:3000');
+        this.socket = io("http://localhost:3000");
 
         this.socket.on("start_game", () =>{
             console.log("client recieved news");
@@ -126,7 +125,8 @@ export default class GameContainer extends React.Component {
                     gameStatus: 2,
                     textSoFar: this.state.textSoFar + 1
                 });
-                this.socket.emit('leaveGame')
+                this.socket.close();
+                this.socket.open()
                 this.updateTickStates();
             }
         } else {

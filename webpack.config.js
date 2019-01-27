@@ -56,6 +56,7 @@ module.exports = {
       '/race': 'http://localhost:3000',
       '/ranking': 'http://localhost:3000',
       '/logout': 'http://localhost:3000',
+      '/profile' : 'http://localhost:3000',
     }
   }
 };

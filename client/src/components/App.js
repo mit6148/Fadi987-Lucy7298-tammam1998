@@ -50,14 +50,14 @@ class App extends React.Component {
       );
   }
   render() {
-    /*if (this.state.userInfo === null) {
+    if (this.state.userInfo === null) {
       return(
       <div>
         <HomePage userInfo= {this.state.userInfo}
           logout= {this.logout} />
       </div>
       );
-    } else{*/
+    } else{
     return (
       <div>
         <div className="head">
@@ -73,13 +73,14 @@ class App extends React.Component {
   
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
-            <Route exact path='/profile/:user' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
+            <Route exact path='/profile' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
             <Route exact path='/race' render={(props) => <GameContainer {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/ranking' component={Ranking} />
         </Switch>
       </div>
     );
   }
+}
 }
 
 export default withRouter(App);

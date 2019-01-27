@@ -14,14 +14,14 @@ class NavBar extends Component {
                 <div className = "navbar-inner collapse navbar-collapse pullUpDown nav-container">
                     <ul className="nav navbar-nav mx-auto">
                         <li className="nav-item">
-                            {this.props.userInfo === null ? (
+                            {this.props.userInfo.name.includes('Guest') ? (
                                 <a href={"/auth/google/"} className="nav-link">Profile</a>  
                             ) : (
-                                <Link to={"/profile/:user"} className="nav-link">Profile</Link>  
+                                <Link to={"/profile" } className="nav-link">Profile</Link>  
                             )}                       
                         </li>
                         <li className="nav-item"><Link to={"/race"} className="nav-link">Race</Link></li>
-                        <li className="nav-item"><Link to={"/ranking"} className="nav-link">LeaderBoard</Link></li>
+                        <li className="nav-item"><Link to={"/ranking"} className="nav-link">Leaderboard</Link></li>
                         <li className="nav-item">
                             {this.props.userInfo.name.includes("Guest") ? (
                                 <a href={"/auth/google/"} className="nav-link">Login</a>  
