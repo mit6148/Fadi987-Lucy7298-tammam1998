@@ -21,7 +21,7 @@ export default class GameContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.socket = io("http://newsracer.herokuapp.com");
+        this.socket = io("https://newsracer.herokuapp.com");
 
         this.socket.on("start_game", () =>{
             console.log("client recieved news");
