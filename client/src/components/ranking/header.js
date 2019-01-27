@@ -13,8 +13,8 @@ export default class Header extends React.Component {
   
     render() {
         return(
-            <div class = "headerdiv">
-              <h1 class = "ranking-header">Leaderboard</h1>
+            <div className = "headerdiv">
+              <h1 className = "ranking-header">Leaderboard</h1>
             </div>
         );
     }

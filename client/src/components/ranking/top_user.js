@@ -13,7 +13,7 @@ export default class Header extends React.Component {
   
     render() {
         return(
-        <div class = "topuserwords">
+        <div className = "topuserwords">
             <span><p>{this.props.rank} </p> </span>
             <span> <p>{this.props.name} </p></span>
             <span> <p>{this.props.score}</p></span>

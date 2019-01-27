@@ -16,6 +16,7 @@
 .headerdiv {
     padding: 3rem 0rem 2rem 0rem;  
     text-align: center; 
+    background-color: aliceblue; 
 }
 
 
@@ -39,12 +40,12 @@ span.b {
 
 .animal_left {
   display: inline-block; 
-  width: 49%; 
+  width: 40%; 
 }
 
 .animal_right {
   display: inline-block; 
-  width: 49%; 
+  width: 40%; 
   vertical-align: middle;  
 }
 
@@ -87,4 +88,9 @@ span.b {
     height: 7px;
     display: block;
     margin: 0 auto;
+}
+
+img.resize{
+  max-width: 50%;
+  max-height: 50%;
 }

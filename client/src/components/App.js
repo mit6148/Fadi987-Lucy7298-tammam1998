@@ -14,18 +14,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      userInfo: null
+      userInfo: {
+        name: "Guest" + (( Math.random() * 100000 ) | 0).toString()
+      }
     };
   }
+
 
   componentDidMount() {
     this.getUser();
   }
 
   logout = () => {
-    this.setState({
-      userInfo: null
-    })
+    fetch('/logout')
   };
 
   getUser = () => {
@@ -40,7 +41,9 @@ class App extends React.Component {
             });
           } else {
             this.setState({
-              userInfo: null
+              userInfo: {
+                name: "Guest" + (( Math.random() * 100000 ) | 0).toString()
+              }
             });
           }
         }
@@ -71,7 +74,7 @@ class App extends React.Component {
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
             <Route exact path='/profile/:user' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
-            <Route exact path='/race' component={GameContainer} />
+            <Route exact path='/race' render={(props) => <GameContainer {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/ranking' component={Ranking} />
         </Switch>
       </div>
