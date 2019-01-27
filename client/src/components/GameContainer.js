@@ -8,7 +8,7 @@ import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import io from 'socket.io-client';
 import { userInfo } from "os";
-const dotevn = require('dotenv').config();
+const dotenv = require('dotenv').config();
 
  /*
   GameObj{

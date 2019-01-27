@@ -86,14 +86,17 @@ app.use(function(err, req, res, next) {
 const port = 3000; // config variable
 const server = http.Server(app);
 
-/////////////////////// socket stuff //////////////////
-const io = socketio(server);
-app.set('socketio', io);
-
-
 server.listen(process.env.PORT || port, function() {
   console.log('Server running on port: ' + port);
 });
+
+/////////////////////// socket stuff //////////////////
+
+
+
+const io = socketio(server);
+app.set('socketio', io);
+
 
 let allGameRooms = new Map();
 let closedRooms = new Map();
