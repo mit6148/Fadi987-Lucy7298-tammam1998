@@ -14,9 +14,9 @@ export default class Header extends React.Component {
     render() {
         return(
         <div className = "topuserwords">
-            <span><h3>{this.props.rank} </h3> </span>
-            <span> <h3>{this.props.name} </h3></span>
-            <span> <h3>{this.props.score}</h3></span>
+            <span><p>{this.props.rank} </p> </span>
+            <span> <p>{this.props.name} </p></span>
+            <span> <p>{this.props.score}</p></span>
         </div>
         );
     }

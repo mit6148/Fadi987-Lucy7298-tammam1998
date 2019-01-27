@@ -21,7 +21,7 @@ class NavBar extends Component {
                             )}                       
                         </li>
                         <li className="nav-item"><Link to={"/race"} className="nav-link">Race</Link></li>
-                        <li className="nav-item"><Link to={"/ranking"} className="nav-link">LeaderBoard</Link></li>
+                        <li className="nav-item"><Link to={"/ranking"} className="nav-link">Leaderboard</Link></li>
                         <li className="nav-item">
                             {this.props.userInfo.name.includes("Guest") ? (
                                 <a href={"/auth/google/"} className="nav-link">Login</a>  
