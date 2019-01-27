@@ -184,7 +184,6 @@ io.sockets.on('connection', function (socket) {
     let rooms = io.sockets.adapter.rooms;
     console.log("user left")
     socket.leave(currRoom);
-    console.log(rooms)
     currRoom = socket.id;
     let oldRoom = currRoom;
     if(!(oldRoom in rooms)){

@@ -125,7 +125,8 @@ export default class GameContainer extends React.Component {
                     gameStatus: 2,
                     textSoFar: this.state.textSoFar + 1
                 });
-                this.socket.emit('leaveGame')
+                this.socket.close();
+                this.socket.open()
                 this.updateTickStates();
             }
         } else {
