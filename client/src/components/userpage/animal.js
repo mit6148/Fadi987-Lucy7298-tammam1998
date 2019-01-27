@@ -54,7 +54,7 @@ export default class Animal extends React.Component {
 
     }
 
-    componentWillMount () {      
+    componentDidMount () {      
         this.getAnimal = this.getAnimal.bind(this); 
         this.getAnimal(); 
 
@@ -66,8 +66,8 @@ export default class Animal extends React.Component {
         //const location = "../../public/" + this.state.animal + ".png"; 
 
         return(
-            <div className = "headerdiv">
-            <div className = "animal_left" ><img  class = "resize" src = {require("../../public/" + this.state.animal + ".png")}/></div>
+            <div className = "headerdiv2">
+            <div className = "animal_left" ><img  className = "resize" src = {require("../../public/" + this.state.animal + ".png")}/></div>
             <div className = "animal_right">
                 <div className = "animal-right-div">
                 <h1 className = "header">Hi, {this.props.userInfo.name}</h1>

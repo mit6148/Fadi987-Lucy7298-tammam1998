@@ -21,6 +21,22 @@
   padding: 5px;
   
 }
+
 .topuserwords span + span{
   border-left: 1px solid #2f2f2f; 
+}
+
+.topgamewords {
+  text-align: center; 
+}
+
+
+.gamespans {
+  display: inline-block;
+  width: 40%; 
+  padding: 2rem 1rem 2rem 1rem; 
+}
+
+.topgamewords .gamespans h2 {
+  font-weight: bold 
 }
