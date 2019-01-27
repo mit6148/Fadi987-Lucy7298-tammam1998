@@ -11,10 +11,9 @@ export default class UserProfile extends React.Component {
       this.state = {
           rank: null, 
           GameArray: null, 
+          best_score: null, 
       };
 
-    console.log(this.props.userInfo);
-    console.log('hihihi');
     this.mounted = true
     this.getRank = this.getRank.bind(this); 
     this.predicateBy = this.predicateBy.bind(this); 
@@ -37,21 +36,16 @@ export default class UserProfile extends React.Component {
             .then((response) => {
                 response.clone().json()
                     .then ((users) => {
-                        console.log('here');  
                         users.sort(this.predicateBy("best_score"));
-                        console.log(users);
                         return users
                     })
                     .then ((sortedusers) => {
                         for (let i = 0; i < sortedusers.length; i ++) {
                             if (sortedusers[i].name === this.props.userInfo.name) {
-                                console.log(i);
                                 if (this.mounted){
                                     this.setState({rank: i + 1});
                                     this.setState({GameArray: sortedusers[i].all_games});
-                                    console.log("meow meow"); 
-                                    console.log(this.state.rank); 
-                                    console.log(this.state.GameArray);   
+                                    this.setState({best_score: sortedusers[i].best_score}); 
                                 } 
                             }
                         }
@@ -90,7 +84,7 @@ export default class UserProfile extends React.Component {
                 <Animal userInfo = {this.props.userInfo}/>
 
                 <div class="flexcontainer">
-                    <div className = "flexcontains"><h2 className = "stattext">Your highest score: </h2><h1 className = "stattext">{this.props.userInfo.best_score}</h1></div>
+                    <div className = "flexcontains"><h2 className = "stattext">Your highest score: </h2><h1 className = "stattext">{this.state.best_score}</h1></div>
                     <div className = "flexcontains"><h2 className = "stattext">Your ranking: </h2><h1 className = "stattext">{this.state.rank}</h1></div>
                 </div>
 
