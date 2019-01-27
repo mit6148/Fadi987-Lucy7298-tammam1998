@@ -7,6 +7,7 @@ const session = require('express-session');
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
+const agx = require('./agxgame');
 
 
 // local dependencies
@@ -85,14 +86,135 @@ app.use(function(err, req, res, next) {
 const port = 3000; // config variable
 const server = http.Server(app);
 
-// socket stuff
+/////////////////////// socket stuff //////////////////
 const io = socketio(server);
 app.set('socketio', io);
+
 
 server.listen(process.env.PORT || port, function() {
   console.log('Server running on port: ' + port);
 });
 
+let allGameRooms = new Map();
+let closedRooms = new Map();
+
+
+const leaveGame = () => {
+  for (let room in io.sockets.adapter.rooms)
+      socket.leave(room)
+}
+
+
+io.sockets.on('connection', function (socket) {
+  let currRoom = socket.id;
+  let currNews = null;
+  let gameStarted = false;
+  //console.log('client connected');
+  /*
+  GameObj{
+    username: String,
+    speed: number,
+    percent: number,
+  }
+  */
+
+  socket.on("creategame", () => {
+    console.log("new game created")
+    let rooms = io.sockets.adapter.rooms;
+    let found_room = false;
+    for (let room in rooms){
+      if (room.includes("race") && rooms[room].length < 2 && !(closedRooms.has(room))){
+          closedRooms.set(room,true)
+          socket.join(room);
+          socket.leave(socket.id)
+          found_room = true;
+          currRoom = room;
+          currNews = allGameRooms.get(room);
+          socket.emit("update_news", currNews)
+          console.log("joined this room" + room);
+          break;
+        }
+      }
+    if(found_room === false){
+      
+      let thisGameId = 'race' + (( Math.random() * 100000 ) | 0).toString();
+      currRoom = thisGameId;
+
+      // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
+      //socket.emit('newGameCreated', {gameId: thisGameId, mySocketId: socket.id});
+      socket.emit("get_news")
+      
+      // Join the Room and wait for the players
+      socket.join(thisGameId);
+      socket.leave(socket.id);
+    }
+  });
+
+
+  socket.on("news_returned", (newsList) =>{
+    //socket.to(currRoom).emit('update_news', gameObj.speed);
+    currNews = newsList;
+    allGameRooms.set(currRoom,currNews)
+    console.log("this is the news" + currNews)
+  }); 
+
+  
+  socket.on("game_started", ()=>{
+    gameStarted = true
+    //console.log(allGameRooms)
+  });
+  
+
+  socket.on("update", (gameObj) =>{
+    if (gameStarted === false && io.sockets.adapter.rooms[currRoom].length == 2){
+        gameStarted = true;
+        allGameRooms.set(currRoom, currNews)
+        io.in(currRoom).emit('start_game');
+        console.log("game started !!!!")
+    } else if (gameStarted){
+      //console.log("update" + gameObj.speed + currRoom);
+      socket.to(currRoom).emit('update_game', gameObj);
+    }
+  })
+
+  socket.on("leaveGame", () =>{
+    let rooms = io.sockets.adapter.rooms;
+    console.log("user left")
+    socket.leave(currRoom);
+    console.log(rooms)
+    currRoom = socket.id;
+    socket.join(socket.id)
+    let oldRoom = currRoom;
+    if(!(oldRoom in rooms)){
+      console.log("room deleted" + oldRoom)
+      closedRooms.delete(oldRoom)
+      allGameRooms.delete(oldRoom)
+    }
+    found_room = false;
+    gameStarted = false;
+
+  })
+
+  
+
+  socket.on("disconnect", () => {
+    console.log("a user dced");
+    console.log("user left")
+    socket.leave(currRoom);
+    let rooms = io.sockets.adapter.rooms;
+    let oldRoom = currRoom;
+    if(!(oldRoom in rooms)){
+      closedRooms.delete(oldRoom)
+      allGameRooms.delete(oldRoom)
+    }
+    currRoom = socket.id;
+    gameStarted = false;
+    found_room = false;
+
+  });
+
+
+});
 
 
 
