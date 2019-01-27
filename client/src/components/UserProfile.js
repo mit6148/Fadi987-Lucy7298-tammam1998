@@ -39,7 +39,6 @@ export default class UserProfile extends React.Component {
                     .then ((users) => {
                         console.log('here');  
                         users.sort(this.predicateBy("best_score"));
-                        console.log(users);
                         return users
                     })
                     .then ((sortedusers) => {
