@@ -262,8 +262,8 @@ export default class GameContainer extends React.Component {
                                     <h5>Speed: {this.state.speed} WPM</h5>
                                     {
                                         Object.keys(players).map((key, index) => (
-                                            <div className="display-box-font">
-                                                <h4> {key}: </h4>
+                                            <div key = {index} className="display-box-font">
+                                                <h4> {key}</h4>
                                                 <h5> speed: {players[key].speed}</h5>
                                                 <h5> percent: {players[key].percent}</h5>
                                             </div>
