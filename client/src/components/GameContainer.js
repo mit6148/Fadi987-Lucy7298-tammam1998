@@ -78,7 +78,8 @@ export default class GameContainer extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    let contentList = (NewsObj.articles[rand].description).split(" ");
+                    let contentList = (NewsObj.articles[rand].description).replace(/[\u2018\u2019]/g, "'")
+                    .replace(/[\u201C\u201D]/g, '"').split(" ");
                     const contentText = contentList.join(" ");
                     this.socket.emit("news_returned", contentList);
                     this.setState({
@@ -145,9 +146,15 @@ export default class GameContainer extends React.Component {
 
     updateTickStates = () => {
         let endDate = new Date();
-        let sec = Math.floor((endDate - this.state.startDate) / 1000);
-        let min = Math.floor(sec / 60);
-        sec = sec - min * 60;
+        let sec = this.state.seconds + 1;
+        let min = this.state.minutes;
+        if (sec === 60){
+            sec = 0;
+            min = min + 1;
+
+        }
+        
+        
         this.setState({
             seconds: sec,
             minutes: min
@@ -162,7 +169,8 @@ export default class GameContainer extends React.Component {
                 this.updateTickStates();
             else
                 this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1,
-                    startDate: new Date(), });
+                    startDate: new Date(),
+                     });
         }
 
         this.socket.emit("update", { username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar });
@@ -199,18 +207,20 @@ export default class GameContainer extends React.Component {
     };
 
     render() {
-        let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
-        typedTextSoFar.push(this.state.currentTypedWord);
+        let typedTextSoFar = [];
         let players = this.state.otherPlayers
         let gameFinished = null;
         let blurComponent = '';
-        let gameStateRender = "Start typing!!!";
+        let gameStateRender = "Starting in " + this.state.waitBeforeStart.toString();
         if (this.state.gameStatus === 0) {
             gameStateRender = "Waiting for players...";
         }
 
-        if (this.state.gameStatus === 1 && this.state.waitBeforeStart !== 0) {
-            gameStateRender = "Starting in " + this.state.waitBeforeStart.toString()
+        
+        if (this.state.gameStatus === 1 && this.state.waitBeforeStart === 0) {
+            typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
+            typedTextSoFar.push(this.state.currentTypedWord);
+            gameStateRender = "Start Typing !!!"
         }
 
             if (this.state.gameStatus === 2) {
@@ -241,7 +251,8 @@ export default class GameContainer extends React.Component {
                                     <TextInput
                                         handleInput={this.updateTextSoFar}
                                         currentWord={this.state.articleList[this.state.textSoFar]}
-                                        updateTypedWord={this.updateCurrentTypedWord} />
+                                        updateTypedWord={this.updateCurrentTypedWord} 
+                                        disabled = {this.state.waitBeforeStart === 0 ? false: true} />
                                 </article>
                             </div>
                             <div className="right-half collumn">
@@ -251,8 +262,8 @@ export default class GameContainer extends React.Component {
                                     <h5>Speed: {this.state.speed} WPM</h5>
                                     {
                                         Object.keys(players).map((key, index) => (
-                                            <div className="display-box-font">
-                                                <h4> {key}: </h4>
+                                            <div key = {index} className="display-box-font">
+                                                <h4> {key}</h4>
                                                 <h5> speed: {players[key].speed}</h5>
                                                 <h5> percent: {players[key].percent}</h5>
                                             </div>
