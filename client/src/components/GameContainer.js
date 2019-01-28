@@ -82,6 +82,7 @@ export default class GameContainer extends React.Component {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
                     console.log(contentList);
                     let contentList = (NewsObj.articles[rand].content).split(" ").slice(0, -3);
+
                     console.log(contentList);
                     const contentText = contentList.join(" ");
                     this.socket.emit("news_returned", contentList);
