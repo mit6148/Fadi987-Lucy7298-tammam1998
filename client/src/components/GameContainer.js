@@ -65,11 +65,9 @@ export default class GameContainer extends React.Component {
     }
 
     handleUpdate = (userData) => {
-        console.log("update recieved");
         let newOtherPlayers = this.state.otherPlayers
         newOtherPlayers[userData.username] = { speed: userData.speed, percent: userData.percent }
         this.setState({ otherPlayers: newOtherPlayers });
-        console.log(this.state.otherPlayers)
     }
 
 
@@ -80,10 +78,7 @@ export default class GameContainer extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    console.log(contentList);
-                    let contentList = (NewsObj.articles[rand].content).split(" ").slice(0, -3);
-
-                    console.log(contentList);
+                    let contentList = (NewsObj.articles[rand].description).split(" ");
                     const contentText = contentList.join(" ");
                     this.socket.emit("news_returned", contentList);
                     this.setState({
@@ -171,7 +166,6 @@ export default class GameContainer extends React.Component {
         }
 
         this.socket.emit("update", { username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar });
-        console.log(this.props.username)
     }
     componentWillUnmount() {
         clearInterval(this.intervalID);

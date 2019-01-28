@@ -45,9 +45,7 @@ export default class SoloGame extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    console.log(contentList);
-                    let contentList = (NewsObj.articles[rand].content).split(" ").slice(0, -3);
-                    console.log(contentList);
+                    let contentList = (NewsObj.articles[rand].description).split(" ");
                     const contentText = contentList.join(" ");
                     this.setState({
                         articleText: contentText,
@@ -128,6 +126,7 @@ export default class SoloGame extends React.Component {
         if (this.state.seconds === 0 && this.state.minutes === 0) {
             this.setState({ speed: 0 });
         } else {
+            let characters = 0;
             for(let i = 0; i < this.state.textSoFar; i++){
                 characters += this.state.articleList[i].length;
             }
