@@ -21,7 +21,7 @@ export default class GameContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.socket = io("http://newsracer.herokuapp.com");
+        this.socket = io("https://newsracer.herokuapp.com/");
 
         this.socket.on("start_game", () => {
             console.log("client recieved news");
@@ -165,7 +165,8 @@ export default class GameContainer extends React.Component {
             if (this.state.waitBeforeStart === 0)
                 this.updateTickStates();
             else
-                this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1 });
+                this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1,
+                    startDate: new Date(), });
         }
 
         this.socket.emit("update", { username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar });
@@ -180,7 +181,12 @@ export default class GameContainer extends React.Component {
         if (this.state.seconds === 0 && this.state.minutes === 0) {
             this.setState({ speed: 0 });
         } else {
-            this.setState({ speed: Math.floor(this.state.textSoFar / (this.state.minutes + this.state.seconds / 60)) });
+            let characters = 0;
+            for(let i = 0; i < this.state.textSoFar; i++){
+                characters += this.state.articleList[i].length;
+            }
+            let words = characters/5
+            this.setState({ speed: Math.floor(words / (this.state.minutes + this.state.seconds / 60)) });
         }
 
 

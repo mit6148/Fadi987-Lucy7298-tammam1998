@@ -7,19 +7,19 @@ import TextInput from "./game/TextInput"
 import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import { userInfo } from "os";
- /*
-  GameObj{
-    username: String,
-    speed: number,
-    percent: number,
-  }
-  */
+/*
+ GameObj{
+   username: String,
+   speed: number,
+   percent: number,
+ }
+ */
 
 export default class SoloGame extends React.Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             articleText: '', //article represent as a string
             articleList: [], //The article reprsented as a List
@@ -67,9 +67,9 @@ export default class SoloGame extends React.Component {
             speed: 0,
             waitBeforeStart: 3,
         });
-        
+
         this.getNews();
-        
+
     }
 
     updateTextSoFar = () => {
@@ -92,7 +92,7 @@ export default class SoloGame extends React.Component {
         this.setState({ currentTypedWord: newWord });
     }
 
-    componentDidMount() { 
+    componentDidMount() {
         this.getNews();
         this.intervalID = setInterval(
             () => this.tick(), 1000);
@@ -115,9 +115,10 @@ export default class SoloGame extends React.Component {
             if (this.state.waitBeforeStart === 0)
                 this.updateTickStates();
             else
-                this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1 });
+                this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1,
+                                startDate: new Date(), });
         }
-        
+
     }
     componentWillUnmount() {
         clearInterval(this.intervalID);
@@ -127,12 +128,17 @@ export default class SoloGame extends React.Component {
         if (this.state.seconds === 0 && this.state.minutes === 0) {
             this.setState({ speed: 0 });
         } else {
-            this.setState({ speed: Math.floor(this.state.textSoFar / (this.state.minutes + this.state.seconds / 60)) });
+            for(let i = 0; i < this.state.textSoFar; i++){
+                characters += this.state.articleList[i].length;
+            }
+            let words = characters/5;
+            
+            this.setState({ speed: Math.floor(words / (this.state.minutes + this.state.seconds / 60)) });
         }
 
 
     }
-    
+
     sendScore = () => {
         const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
         fetch('/api/user', {
@@ -146,32 +152,32 @@ export default class SoloGame extends React.Component {
 
     render() {
         let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
-            typedTextSoFar.push(this.state.currentTypedWord);
-            let gameFinished = null;
-            let blurComponent = '';
-            let gameStateRender = "Start typing!!!";
-            if (this.state.gameStatus === 0){
-                gameStateRender = "Waiting for players..." ;
-            }
+        typedTextSoFar.push(this.state.currentTypedWord);
+        let gameFinished = null;
+        let blurComponent = '';
+        let gameStateRender = "Start typing!!!";
+        if (this.state.gameStatus === 0) {
+            gameStateRender = "Waiting for players...";
+        }
 
-            if (this.state.gameStatus === 1 && this.state.waitBeforeStart !== 0) {
-                gameStateRender = "Starting in " + this.state.waitBeforeStart.toString()
-            }
+        if (this.state.gameStatus === 1 && this.state.waitBeforeStart !== 0) {
+            gameStateRender = "Starting in " + this.state.waitBeforeStart.toString()
+        }
 
-            if (this.state.gameStatus === 2){
-                gameFinished = <GameOver newGame = {this.newGame} 
-                                        speed = {this.state.speed}
-                                        sendScore = {this.sendScore}/> ;
-                blurComponent = 'blur'
-            }
+        if (this.state.gameStatus === 2) {
+            gameFinished = <GameOver newGame={this.newGame}
+                speed={this.state.speed}
+                sendScore={this.sendScore} />;
+            blurComponent = 'blur'
+        }
 
 
-            return (
-                <div>
-                    <div className = {blurComponent}>
+        return (
+            <div>
+                <div className={blurComponent}>
                     <h2 className="head" style={{ marginTop: "20px" }}>{gameStateRender}</h2>
                     <section className={"game-container game-div" + blurComponent}>
-    
+
                         <div className="left-half collumn" >
                             <TextGraphics
                                 typedTextSoFar={typedTextSoFar}
@@ -179,27 +185,27 @@ export default class SoloGame extends React.Component {
                         </div>
                         <div className="middle-half">
                             <article>
-    
+
                                 <TextDisplay
                                     articleToDisplay={this.state.articleText}
                                 />
                                 <TextInput
-                                handleInput={this.updateTextSoFar}
-                                currentWord={this.state.articleList[this.state.textSoFar]}
-                                updateTypedWord={this.updateCurrentTypedWord} />
+                                    handleInput={this.updateTextSoFar}
+                                    currentWord={this.state.articleList[this.state.textSoFar]}
+                                    updateTypedWord={this.updateCurrentTypedWord} />
                             </article>
                         </div>
                         <div className="right-half collumn">
                             <div>
-                            <h4>{this.state.minutes} : {this.state.seconds}</h4>
-                            <h4>You :</h4>
-                            <h5>Speed: {this.state.speed} WPM</h5>
+                                <h4>{this.state.minutes} : {this.state.seconds}</h4>
+                                <h4>You :</h4>
+                                <h5>Speed: {this.state.speed} WPM</h5>
                             </div>
                         </div>
                     </section>
-                    </div>
-                    {gameFinished}
                 </div>
-            );
-        }
+                {gameFinished}
+            </div>
+        );
     }
+}
