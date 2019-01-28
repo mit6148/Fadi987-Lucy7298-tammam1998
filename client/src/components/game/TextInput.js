@@ -63,7 +63,10 @@ export default class TextInput extends React.Component {
     componentDidUpdate() {
         if (this.state.lastDisabled !== this.props.disabled){
             this.focusTextInput();
-            this.setState({lastDisabled: this.props.disabled})
+            this.setState({lastDisabled: this.props.disabled,
+                            inputValue: '',
+                            color: null,})
+
         }
         
     }

@@ -70,6 +70,24 @@ export default class GameContainer extends React.Component {
         this.setState({ otherPlayers: newOtherPlayers });
     }
 
+    escapeHtml = (text) => {
+        let map = {
+          '&amp;' : '&',
+          '&#38' : '&',
+          '&lt;' : '<',
+          '&gt;' : '>' ,
+          '&quot;' : '"',
+            '&#039;' : "'",
+          '&#160' : ' ',
+          '&thinsp' : ' ',
+          '&ensp' : ' ',
+            '&emsp' :  ' ',
+            '…' : '...',
+            '—' : '-'
+        };
+      
+        return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
+      }
 
     getNews = () => {
 
@@ -78,8 +96,10 @@ export default class GameContainer extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    let contentList = (NewsObj.articles[rand].description).replace(/[\u2018\u2019]/g, "'")
-                    .replace(/[\u201C\u201D]/g, '"').split(" ");
+                    let txt = document.createElement("textarea");
+                    txt.innerHTML = NewsObj.articles[rand].description;
+                    let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
+                    let contentList = content.split(" ");
                     const contentText = contentList.join(" ");
                     this.socket.emit("news_returned", contentList);
                     this.setState({
@@ -101,6 +121,7 @@ export default class GameContainer extends React.Component {
             minutes: 0,
             speed: 0,
             otherPlayers: {},
+            currentTypedWord: '',
             waitBeforeStart: 3,
         });
 
@@ -246,7 +267,9 @@ export default class GameContainer extends React.Component {
                                 <article>
 
                                     <TextDisplay
-                                        articleToDisplay={this.state.articleText}
+                                        articleToDisplay={this.state.articleList}
+                                        textSoFar = {this.state.textSoFar}
+                                        currentTypedWord = {this.state.currentTypedWord}
                                     />
                                     <TextInput
                                         handleInput={this.updateTextSoFar}

@@ -22,7 +22,7 @@ export default class SoloGame extends React.Component {
 
         this.state = {
             articleText: '', //article represent as a string
-            articleList: [], //The article reprsented as a List
+            articleList: [''], //The article reprsented as a List
             textSoFar: 0, // counter for the articleList for typed words
             currentTypedWord: '',
             startDate: new Date(),
@@ -37,6 +37,26 @@ export default class SoloGame extends React.Component {
 
     }
 
+    escapeHtml = (text) => {
+        let map = {
+          '&amp;' : '&',
+          '&#38' : '&',
+          '&lt;' : '<',
+          '&gt;' : '>' ,
+          '&quot;' : '"',
+            '&#039;' : "'",
+          '&#160' : ' ',
+          '&thinsp' : ' ',
+          '&ensp' : ' ',
+            '&emsp' :  ' ',
+            '…' : '...',
+            '—' : '-'
+        };
+      
+        return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
+      }
+
+  
 
     getNews = () => {
 
@@ -45,8 +65,12 @@ export default class SoloGame extends React.Component {
             .then(
                 NewsObj => {
                     const rand = Math.floor((Math.random() * NewsObj.articles.length));
-                    let contentList = (NewsObj.articles[rand].description).replace(/[\u2018\u2019]/g, "'")
-                    .replace(/[\u201C\u201D]/g, '"').split(" ");
+
+                    let txt = document.createElement("textarea");
+                    txt.innerHTML = NewsObj.articles[rand].description;
+                    let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
+
+                    let contentList = content.split(" ");
                     const contentText = contentList.join(" ");
                     this.setState({
                         articleText: contentText,
@@ -64,6 +88,7 @@ export default class SoloGame extends React.Component {
             seconds: 0,
             minutes: 0,
             speed: 0,
+            currentTypedWord: '',
             waitBeforeStart: 3,
         });
 
@@ -135,7 +160,7 @@ export default class SoloGame extends React.Component {
             for(let i = 0; i < this.state.textSoFar; i++){
                 characters += this.state.articleList[i].length;
             }
-            
+
             let words = characters/5;
             this.setState({ speed: Math.floor(words / (this.state.minutes + this.state.seconds / 60)) });
         }
@@ -192,7 +217,9 @@ export default class SoloGame extends React.Component {
                             <article>
 
                                 <TextDisplay
-                                    articleToDisplay={this.state.articleText}
+                                    articleToDisplay={this.state.articleList}
+                                    textSoFar = {this.state.textSoFar}
+                                    currentTypedWord = {this.state.currentTypedWord}
                                 />
                                 <TextInput
                                     handleInput={this.updateTextSoFar}
