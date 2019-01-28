@@ -58,7 +58,7 @@ module.exports = {
       '/logout': 'http://localhost:3000',
       '/profile' : 'http://localhost:3000',
       '/solorace': 'http://localhost:3000',
-      "proxy": "http://localhost:5000/"
+      "proxy": "http://localhost:3000/"
     }
   }
 };
