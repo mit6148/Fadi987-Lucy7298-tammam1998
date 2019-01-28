@@ -12,6 +12,8 @@ export default class TextInput extends React.Component {
         super(props);
         this.state = {
             inputValue: '',
+            color: null,
+            indexOfError : -1,
         };
         this.updateInputValue = this.updateInputValue.bind(this);
     }
@@ -20,10 +22,29 @@ export default class TextInput extends React.Component {
 
         let inpVal = event.target.value
         if (inpVal.substr(-1) == ' ' && this.props.currentWord === this.state.inputValue) {
-            this.setState({ inputValue: '' });
+            this.setState({ inputValue: '',
+                            color: null,
+                            indexOfError : -1 });
             inpVal = ''
             this.props.handleInput()
         } else {
+            let errIndex = -1;
+            for(let index = 0; index < inpVal.length; index++){
+                if (inpVal[index] !== this.props.currentWord[index]){
+                    this.setState({
+                        color: {backgroundColor : "#FF5733"},
+                        indexOfError : index,
+                    });
+                    errIndex = index;
+                }
+            }
+            if (errIndex === -1){
+                this.setState({
+                    color: null,
+                    indexOfError : -1,
+                });
+            }
+
             this.setState({
                 inputValue: inpVal
             });
@@ -35,7 +56,7 @@ export default class TextInput extends React.Component {
     render() {
         return (
             <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                <input type="text" className="form-control" style = {this.state.color} placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"
                     value={this.state.inputValue} onChange={event => this.updateInputValue(event)} />
                 <div className="input-group-append">
                     <button type="button" className="btn btn-dark" onClick={this.props.handleInput}>NextWord</button>

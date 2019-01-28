@@ -8,13 +8,13 @@ import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import io from 'socket.io-client';
 import { userInfo } from "os";
- /*
-  GameObj{
-    username: String,
-    speed: number,
-    percent: number,
-  }
-  */
+/*
+ GameObj{
+   username: String,
+   speed: number,
+   percent: number,
+ }
+ */
 
 export default class GameContainer extends React.Component {
 
@@ -23,11 +23,11 @@ export default class GameContainer extends React.Component {
 
         this.socket = io("http://localhost:3000");
 
-        this.socket.on("start_game", () =>{
+        this.socket.on("start_game", () => {
             console.log("client recieved news");
             this.newGame();
             this.socket.emit("game_started")
-            this.setState({gameStatus: 1})
+            this.setState({ gameStatus: 1 })
         });
 
         this.socket.on("update_game", (userData) => {
@@ -45,7 +45,7 @@ export default class GameContainer extends React.Component {
             this.getNews();
             console.log("was asked for news");
         });
-        
+
         this.state = {
             articleText: '', //article represent as a string
             articleList: [], //The article reprsented as a List
@@ -57,17 +57,18 @@ export default class GameContainer extends React.Component {
             gameStatus: 0, //0 is waiting to start, 1 is on going, 2 is gameover 
             speed: 0,
             otherPlayers: {},
+            waitBeforeStart: 3,
         };
-        //xthis.getNews = this.getNews.bind(this);
+        this.getNews = this.getNews.bind(this);
         this.socket.emit("creategame");
 
     }
 
-    handleUpdate = (userData) =>{
+    handleUpdate = (userData) => {
         console.log("update recieved");
         let newOtherPlayers = this.state.otherPlayers
-        newOtherPlayers[userData.username] = {speed: userData.speed, percent: userData.percent}
-        this.setState({otherPlayers: newOtherPlayers});
+        newOtherPlayers[userData.username] = { speed: userData.speed, percent: userData.percent }
+        this.setState({ otherPlayers: newOtherPlayers });
         console.log(this.state.otherPlayers)
     }
 
@@ -103,9 +104,10 @@ export default class GameContainer extends React.Component {
             minutes: 0,
             speed: 0,
             otherPlayers: {},
+            waitBeforeStart: 3,
         });
-        
-        
+
+
         /*if (newsList !== null){
             this.setState({
                 articleText: newsList.join(" "),
@@ -140,7 +142,7 @@ export default class GameContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.socket.open;   
+        this.socket.open;
         this.intervalID = setInterval(
             () => this.tick(), 1000);
     }
@@ -158,11 +160,15 @@ export default class GameContainer extends React.Component {
     }
 
     tick() {
+
         if (this.state.gameStatus === 1) {
-            this.updateTickStates()
+            if (this.state.waitBeforeStart === 0)
+                this.updateTickStates();
+            else
+                this.setState({ waitBeforeStart: this.state.waitBeforeStart - 1 });
         }
-        
-        this.socket.emit("update",{username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar});
+
+        this.socket.emit("update", { username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar });
         console.log(this.props.username)
     }
     componentWillUnmount() {
@@ -179,7 +185,7 @@ export default class GameContainer extends React.Component {
 
 
     }
-    
+
     sendScore = () => {
         const body = { 'score': this.state.speed, 'timestamp': this.state.startDate };
         fetch('/api/user', {
@@ -193,63 +199,67 @@ export default class GameContainer extends React.Component {
 
     render() {
         let typedTextSoFar = this.state.articleList.slice(0, this.state.textSoFar);
-            typedTextSoFar.push(this.state.currentTypedWord);
-            let players = this.state.otherPlayers
-            let gameFinished = null;
-            let blurComponent = '';
-            let gameStateRender = "Start typing!!!";
-            if (this.state.gameStatus === 0){
-                gameStateRender = "Waiting for players..." ;
-            }
+        typedTextSoFar.push(this.state.currentTypedWord);
+        let players = this.state.otherPlayers
+        let gameFinished = null;
+        let blurComponent = '';
+        let gameStateRender = "Start typing!!!";
+        if (this.state.gameStatus === 0) {
+            gameStateRender = "Waiting for players...";
+        }
 
-            if (this.state.gameStatus === 2){
-                gameFinished = <GameOver newGame = {this.newGame} 
-                                        speed = {this.state.speed}
-                                        sendScore = {this.sendScore}/> ;
+        if (this.state.gameStatus === 1 && this.state.waitBeforeStart !== 0) {
+            gameStateRender = "Starting in " + this.state.waitBeforeStart.toString()
+        }
+
+            if (this.state.gameStatus === 2) {
+                gameFinished = <GameOver newGame={this.newGame}
+                    speed={this.state.speed}
+                    sendScore={this.sendScore} />;
                 blurComponent = 'blur'
             }
 
 
             return (
                 <div>
-                    <div className = {blurComponent}>
-                    <h2 className="head" style={{ marginTop: "20px" }}>{gameStateRender}</h2>
-                    <section className={"game-container game-div" + blurComponent}>
-    
-                        <div className="left-half collumn" >
-                            <TextGraphics
-                                typedTextSoFar={typedTextSoFar}
-                            />
-                        </div>
-                        <div className="middle-half">
-                            <article>
-    
-                                <TextDisplay
-                                    articleToDisplay={this.state.articleText}
+                    <div className={blurComponent}>
+                        <h2 className="head" style={{ marginTop: "20px" }}>{gameStateRender}</h2>
+                        <section className={"game-container game-div" + blurComponent}>
+
+                            <div className="left-half collumn" >
+                                <TextGraphics
+                                    typedTextSoFar={typedTextSoFar}
                                 />
-                                <TextInput
-                                handleInput={this.updateTextSoFar}
-                                currentWord={this.state.articleList[this.state.textSoFar]}
-                                updateTypedWord={this.updateCurrentTypedWord} />
-                            </article>
-                        </div>
-                        <div className="right-half collumn">
-                            <div>
-                            <h4>{this.state.minutes} : {this.state.seconds}</h4>
-                            <h4>Me:</h4>
-                            <h5>Speed: {this.state.speed} WPM</h5>
-                                {
-                                    Object.keys(players).map((key, index) => ( 
-                                    <div className = "display-box-font">
-                                        <h4> {key}: </h4>
-                                        <h5> speed: {players[key].speed}</h5>
-                                        <h5> percent: {players[key].percent}</h5> 
-                                    </div>
-                                                
-                                ))}
                             </div>
-                        </div>
-                    </section>
+                            <div className="middle-half">
+                                <article>
+
+                                    <TextDisplay
+                                        articleToDisplay={this.state.articleText}
+                                    />
+                                    <TextInput
+                                        handleInput={this.updateTextSoFar}
+                                        currentWord={this.state.articleList[this.state.textSoFar]}
+                                        updateTypedWord={this.updateCurrentTypedWord} />
+                                </article>
+                            </div>
+                            <div className="right-half collumn">
+                                <div>
+                                    <h4>{this.state.minutes} : {this.state.seconds}</h4>
+                                    <h4>Me:</h4>
+                                    <h5>Speed: {this.state.speed} WPM</h5>
+                                    {
+                                        Object.keys(players).map((key, index) => (
+                                            <div className="display-box-font">
+                                                <h4> {key}: </h4>
+                                                <h5> speed: {players[key].speed}</h5>
+                                                <h5> percent: {players[key].percent}</h5>
+                                            </div>
+
+                                        ))}
+                                </div>
+                            </div>
+                        </section>
                     </div>
                     {gameFinished}
                 </div>

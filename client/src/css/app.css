@@ -28,7 +28,8 @@ body {
     text-align: center;
 }
 
-.navbar-nav .nav-link {
+
+.navbar-light .navbar-nav .nav-link {
     color:#2f2f2f;
 }
 
@@ -48,8 +49,17 @@ div.nav-container .nav-link
     cursor: pointer;
 }
 
+div.nav-container .nav-drop
+{
+    text-decoration: none;
+    margin: 0px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
 
-div.borderXwidth .nav-link:before, div.borderXwidth .nav-link:after
+
+div.borderXwidth .nav-drop:before, div.borderXwidth .nav-drop:after
 {
     position: absolute;
     opacity: 0;
@@ -60,19 +70,19 @@ div.borderXwidth .nav-link:before, div.borderXwidth .nav-link:after
     transition: all 0.3s;
 }
 
-div.borderXwidth .nav-link:before
+div.borderXwidth .nav-drop:before
 {
     left: 0px;
     top: 0px;
 }
 
-div.borderXwidth .nav-link:after
+div.borderXwidth .nav-drop:after
 {
     right: 0px;
     bottom: 0px;
 }
 
-div.borderXwidth .nav-link:hover:before, div.borderXwidth .nav-link:hover:after
+div.borderXwidth .nav-drop:hover:before, div.borderXwidth .nav-drop:hover:after
 {
     opacity: 1;
     width: 100%;
@@ -80,7 +90,8 @@ div.borderXwidth .nav-link:hover:before, div.borderXwidth .nav-link:hover:after
 
 /*pullupdown
 */
-div.pullUpDown .nav-link:before, div.pullUpDown .nav-link:after
+
+div.pullUpDown .nav-link-pullupdown:before, div.pullUpDown .nav-link-pullupdown:after 
 {
     position: absolute;
     width: 100%;
@@ -92,17 +103,17 @@ div.pullUpDown .nav-link:before, div.pullUpDown .nav-link:after
     transition: all 0.3s;
 }
 
-div.pullUpDown .nav-link:before
+div.pullUpDown .nav-link-pullupdown:before
 {
     top: 0px;
 } 
 
-div.pullUpDown .nav-link:after
+div.pullUpDown .nav-link-pullupdown:after
 {
     bottom: 0px;
 }
 
-div.pullUpDown .nav-link:hover:before, div.pullUpDown .nav-link:hover:after
+div.pullUpDown .nav-link-pullupdown:hover:before, div.pullUpDown .nav-link-pullupdown:hover:after
 {
     height: 100%;
 }

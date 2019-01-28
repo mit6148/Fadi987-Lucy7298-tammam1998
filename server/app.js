@@ -61,7 +61,7 @@ app.get('/logout', function(req, res) {
 app.use('/api', api );
 app.use(express.static(publicPath));
 
-app.get(["/race", '/ranking'], (req, res) => {
+app.get(["/race", '/ranking', "/solorace"], (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
 

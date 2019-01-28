@@ -4,6 +4,7 @@ import GameContainer from "./GameContainer";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
 import Ranking from "./Ranking";
+import SoloGame from "./soloGame";
 import UserProfile from "./UserProfile"; 
 import  "../css/newspaper.css"
 
@@ -75,6 +76,7 @@ class App extends React.Component {
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
             <Route exact path='/profile' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
             <Route exact path='/race' render={(props) => <GameContainer {...props} username={this.state.userInfo.name} />} />
+            <Route exact path='/solorace' render={(props) => <SoloGame {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/ranking' component={Ranking} />
         </Switch>
       </div>
