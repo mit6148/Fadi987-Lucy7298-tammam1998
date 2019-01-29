@@ -209,7 +209,7 @@ export default class GameContainer extends React.Component {
             for(let i = 0; i < this.state.textSoFar; i++){
                 characters += this.state.articleList[i].length;
             }
-            let words = characters/5
+            let words = characters/5  + this.state.textSoFar;
             this.setState({ speed: Math.floor(words / (this.state.minutes + this.state.seconds / 60)) });
         }
 
