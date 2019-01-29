@@ -63,9 +63,11 @@ export default class HomePage extends React.Component {
                     <Typist.Delay ms ={500}/>
                 
 
-                <div className = "Lucy"> <Typist>Yunxing Liao</Typist></div>
-                <div className = "Tammam"><Typist>Tammam Mustafa</Typist></div>
-                <div className = "Fadi"><Typist>Fadi Atieh</Typist></div>
+                <div className = "Lucy">Yunxing Liao</div>
+                <Typist.Delay ms ={200}/>
+                <div className = "Tammam">Tammam Mustafa</div>
+                <Typist.Delay ms ={200}/>
+                <div className = "Fadi">Fadi Atieh</div>
                 </Typist>
                 </div>
 
