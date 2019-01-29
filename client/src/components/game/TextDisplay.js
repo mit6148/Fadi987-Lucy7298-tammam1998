@@ -37,6 +37,7 @@ export default class TextDisplay extends React.Component {
         return(
             <div className = "text-display-box display-box-font" >
                 <span><h4 style = {{color:'rgb(60, 136, 121)', display:"inline"}}>{correctText}</h4></span>
+                
                 <span><h4 style = {{display:"inline"}}>{notTypedText}</h4></span>
             </div>
         );

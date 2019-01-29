@@ -5,8 +5,8 @@ import HomePage from "./HomePage";
 import NavBar from "./NavBar";
 import Ranking from "./Ranking";
 import SoloGame from "./soloGame";
-import UserProfile from "./UserProfile"; 
-import  "../css/newspaper.css"
+import UserProfile from "./UserProfile";
+import "../css/newspaper.css"
 
 import { Route, Switch, withRouter } from 'react-router-dom';
 
@@ -16,9 +16,9 @@ class App extends React.Component {
 
     this.state = {
       userInfo: {
-        name: "Guest" + (( Math.random() * 100000 ) | 0).toString()
-      }, 
-      id: null 
+        name: "Guest" + ((Math.random() * 100000) | 0).toString()
+      },
+      id: null
     };
   }
 
@@ -39,13 +39,13 @@ class App extends React.Component {
           console.log(userObj)
           if (userObj._id !== undefined) {
             this.setState({
-              userInfo: userObj, 
-              id: userObj._id, 
+              userInfo: userObj,
+              id: userObj._id,
             });
           } else {
             this.setState({
               userInfo: {
-                name: "Guest" + (( Math.random() * 100000 ) | 0).toString()
+                name: "Guest" + ((Math.random() * 100000) | 0).toString()
               }
             });
           }
@@ -53,38 +53,29 @@ class App extends React.Component {
       );
   }
   render() {
-    if (this.state.userInfo === null) {
-      return(
-      <div>
-        <HomePage userInfo= {this.state.userInfo}
-          logout= {this.logout} />
-      </div>
-      );
-    } else{
+
     return (
       <div>
-        <div className="head">
-           <div className="headerobjectswrapper">
-                  <header>News Racer</header>
+          <div className="head">
+            <div className="headerobjectswrapper">
+              <header>News Racer</header>
             </div>
-        
-      </div>
+
+          </div>
           <div>
             <NavBar userInfo={this.state.userInfo}
-                    logout={this.logout}/>
+              logout={this.logout} />
           </div>
-  
-        <Switch>
-            <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
+          <Switch>
+            <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout={this.logout} />} />
             <Route exact path='/profile/:id/' component={UserProfile} />
             <Route exact path='/race' render={(props) => <GameContainer {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/solorace' render={(props) => <SoloGame {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/ranking' component={Ranking} />
-        </Switch>
+          </Switch>
       </div>
     );
   }
-}
 }
 
 export default withRouter(App);

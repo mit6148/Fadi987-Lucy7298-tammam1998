@@ -4,8 +4,9 @@ import "../css/newspaper.css";
 import TextDisplay from "./game/TextDisplay"
 import TextGraphics from "./game/TextGraphics"
 import TextInput from "./game/TextInput"
-import Timer from "./game/Timer"
+import GameProgress from "./game/GameProgress"
 import GameOver from "./game/GameOver"
+import Timer from "./game/Timer"
 import { userInfo } from "os";
 /*
  GameObj{
@@ -32,8 +33,9 @@ export default class SoloGame extends React.Component {
             speed: 0,
             otherPlayers: {},
             waitBeforeStart: 3,
+            newsObj: {}
         };
-        this.getNews = this.getNews.bind(this);
+        //this.getNews = this.getNews.bind(this);
 
     }
 
@@ -44,13 +46,18 @@ export default class SoloGame extends React.Component {
           '&lt;' : '<',
           '&gt;' : '>' ,
           '&quot;' : '"',
+          '&apos;' : "'",
             '&#039;' : "'",
           '&#160' : ' ',
           '&thinsp' : ' ',
           '&ensp' : ' ',
             '&emsp' :  ' ',
             '…' : '...',
-            '—' : '-'
+            '—' : '-',
+            '\u2018' : "'",
+            '\u2019' : "'",
+            '\u201C' : '"',
+            '\u201D' : '"'
         };
       
         return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
@@ -69,12 +76,13 @@ export default class SoloGame extends React.Component {
                     let txt = document.createElement("textarea");
                     txt.innerHTML = NewsObj.articles[rand].description;
                     let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
-
                     let contentList = content.split(" ");
+                    console.log(NewsObj)
                     const contentText = contentList.join(" ");
                     this.setState({
                         articleText: contentText,
-                        articleList: contentList
+                        articleList: contentList,
+                        newsObj: NewsObj.articles[rand]
                     });
                 }
             );
@@ -161,7 +169,7 @@ export default class SoloGame extends React.Component {
                 characters += this.state.articleList[i].length;
             }
 
-            let words = characters/5 + this.state.textSoFar - 1;
+            let words = characters/5 + this.state.textSoFar;
             this.setState({ speed: Math.floor(words / (this.state.minutes + (this.state.seconds / 60))) });
         }
 
@@ -197,7 +205,8 @@ export default class SoloGame extends React.Component {
         if (this.state.gameStatus === 2) {
             gameFinished = <GameOver newGame={this.newGame}
                 speed={this.state.speed}
-                sendScore={this.sendScore} />;
+                sendScore={this.sendScore}
+                newsObj = {this.state.newsObj} />;
             blurComponent = 'blur'
         }
         
@@ -210,6 +219,7 @@ export default class SoloGame extends React.Component {
 
                         <div className="left-half collumn" >
                             <TextGraphics
+                                newsObj = {this.state.newsObj}
                                 typedTextSoFar={typedTextSoFar}
                             />
                         </div>
@@ -226,15 +236,20 @@ export default class SoloGame extends React.Component {
                                     currentWord={this.state.articleList[this.state.textSoFar]}
                                     updateTypedWord={this.updateCurrentTypedWord}
                                     disabled = {this.state.waitBeforeStart === 0 ? false: true}
+                                    lastword = {this.state.textSoFar === this.state.articleList.length - 1 ? true:false}
+                                
                                      />
                             </article>
                         </div>
                         <div className="right-half collumn">
-                            <div>
-                                <h4>{this.state.minutes} : {this.state.seconds}</h4>
-                                <h4>You :</h4>
-                                <h5>Speed: {this.state.speed} WPM</h5>
-                            </div>
+                            <article>
+                                <Timer seconds = {this.state.seconds} minutes = {this.state.minutes} />
+
+                                <GameProgress
+                                    name = {this.props.username}
+                                    speed = {this.state.speed}
+                                    percent = {this.state.textSoFar/(this.state.articleList.length)} />
+                            </article>
                         </div>
                     </section>
                 </div>

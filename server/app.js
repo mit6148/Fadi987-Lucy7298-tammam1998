@@ -7,8 +7,6 @@ const session = require('express-session');
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
-const agx = require('./agxgame');
-
 
 // local dependencies
 const db = require('./db');

@@ -16,7 +16,7 @@
   }
   
 .left-half {
-  flex: 0.5;
+  flex: 1;
   font-size: 14px;
   line-height: 20px;
   width: 17.5%;
@@ -28,6 +28,7 @@
   transition: all .7s;
   border-right: 1px solid #2f2f2f;
   border-left: 1px solid #2f2f2f;
+ 
 }
 
 .text-graphics{
@@ -38,7 +39,7 @@
 
 .middle-half {
 justify-content: center;
-flex: 2;
+flex: 4;
 }
 .game-div > div {
     display: flex;
@@ -70,10 +71,9 @@ flex: 2;
 }
 
 .right-half {
-  flex: 0.5;
+  flex: 1;
   font-size: 14px;
   line-height: 20px;
-  display: block;
   width: 17.5%;
   padding: 0 1% 0 1%;
   margin-bottom: 50px;
@@ -83,5 +83,9 @@ flex: 2;
   
   border-left: 2px #2f2f2f dashed;
 
+}
+
+.red{
+  background-color: red;
 }
 

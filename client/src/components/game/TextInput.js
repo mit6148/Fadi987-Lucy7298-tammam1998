@@ -23,7 +23,9 @@ export default class TextInput extends React.Component {
     updateInputValue(event) {
 
         let inpVal = event.target.value
-        if (inpVal.substr(-1) == ' ' && this.props.currentWord === this.state.inputValue) {
+
+        if ((inpVal.substr(-1) == ' '  && this.props.currentWord === this.state.inputValue) ||
+                 (this.props.lastword && this.props.currentWord === inpVal)) {
             this.setState({ inputValue: '',
                             color: null,
                             indexOfError : -1 });
@@ -78,7 +80,8 @@ export default class TextInput extends React.Component {
                 <input type="text" className="form-control" style = {this.state.color} placeholder="Type Here" aria-label="Type Here" aria-describedby="basic-addon2"
                     value={this.state.inputValue} onChange={event => this.updateInputValue(event) } autoFocus disabled={this.props.disabled} ref = {this.textInput}/>
                 <div className="input-group-append">
-                    <button type="button" className="btn btn-dark" onClick={this.props.handleInput}>NextWord</button>
+                    <button type="button" className="btn btn-dark" onClick={this.props.handleInput}> {this.props.currentWord}</button>
+                    {/**/}
                 </div>
             </div>
         );
