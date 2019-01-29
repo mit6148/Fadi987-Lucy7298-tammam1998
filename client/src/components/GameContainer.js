@@ -35,10 +35,11 @@ export default class GameContainer extends React.Component {
             this.handleUpdate(userData);
         })
 
-        this.socket.on("update_news", (newsList) => {
+        this.socket.on("update_news", (newsList, NewsObj) => {
             this.setState({
                 articleText: newsList.join(" "),
                 articleList: newsList,
+                newsObj : NewsObj
             });
         });
 
@@ -108,7 +109,7 @@ export default class GameContainer extends React.Component {
                     let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
                     let contentList = content.split(" ");
                     const contentText = contentList.join(" ");
-                    this.socket.emit("news_returned", contentList);
+                    this.socket.emit("news_returned", contentList, NewsObj.articles[rand]);
                     this.setState({
                         articleText: contentText,
                         articleList: contentList,

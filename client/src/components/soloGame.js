@@ -77,7 +77,6 @@ export default class SoloGame extends React.Component {
                     txt.innerHTML = NewsObj.articles[rand].description;
                     let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
                     let contentList = content.split(" ");
-                    console.log(NewsObj)
                     const contentText = contentList.join(" ");
                     this.setState({
                         articleText: contentText,
