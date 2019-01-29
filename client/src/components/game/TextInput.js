@@ -23,7 +23,9 @@ export default class TextInput extends React.Component {
     updateInputValue(event) {
 
         let inpVal = event.target.value
-        if (inpVal.substr(-1) == ' ' && this.props.currentWord === this.state.inputValue) {
+
+        if ((inpVal.substr(-1) == ' '  && this.props.currentWord === this.state.inputValue) ||
+                 (this.props.lastword && this.props.currentWord === inpVal)) {
             this.setState({ inputValue: '',
                             color: null,
                             indexOfError : -1 });

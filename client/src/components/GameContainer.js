@@ -209,7 +209,7 @@ export default class GameContainer extends React.Component {
             for(let i = 0; i < this.state.textSoFar; i++){
                 characters += this.state.articleList[i].length;
             }
-            let words = characters/5  + this.state.textSoFar - 1;
+            let words = characters/5  + this.state.textSoFar;
             this.setState({ speed: Math.floor(words / (this.state.minutes + this.state.seconds / 60)) });
         }
 
@@ -275,7 +275,8 @@ export default class GameContainer extends React.Component {
                                         handleInput={this.updateTextSoFar}
                                         currentWord={this.state.articleList[this.state.textSoFar]}
                                         updateTypedWord={this.updateCurrentTypedWord} 
-                                        disabled = {this.state.waitBeforeStart === 0 ? false: true} />
+                                        disabled = {this.state.waitBeforeStart === 0 ? false: true}
+                                        lastword = {this.state.textSoFar === this.state.articleList.length - 1 ? true:false} />
                                 </article>
                             </div>
                             <div className="right-half collumn">
