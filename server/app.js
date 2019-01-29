@@ -7,8 +7,6 @@ const session = require('express-session');
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
-const agx = require('./agxgame');
-
 
 // local dependencies
 const db = require('./db');
@@ -58,7 +56,6 @@ app.use('/api', api );
 app.use(express.static(publicPath));
 
 app.get(['/profile/:id'], function (req, res) {
-  console.log("hi"); 
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
   
@@ -113,6 +110,7 @@ const leaveGame = () => {
 io.sockets.on('connection', function (socket) {
   let currRoom = socket.id;
   let currNews = null;
+  let currNewsObj = null;
   let gameStarted = false;
   //console.log('client connected');
   /*
@@ -124,7 +122,7 @@ io.sockets.on('connection', function (socket) {
   */
 
   socket.on("creategame", () => {
-    console.log("new game created")
+    //console.log("new game created")
     let rooms = io.sockets.adapter.rooms;
     let found_room = false;
     for (let room in rooms){
@@ -134,9 +132,8 @@ io.sockets.on('connection', function (socket) {
           socket.leave(socket.id)
           found_room = true;
           currRoom = room;
-          currNews = allGameRooms.get(room);
-          socket.emit("update_news", currNews)
-          console.log("joined this room" + room);
+          [currNews, currNewsObj] = allGameRooms.get(room);
+          socket.emit("update_news", currNews, currNewsObj)
           break;
         }
       }
@@ -156,11 +153,11 @@ io.sockets.on('connection', function (socket) {
   });
 
 
-  socket.on("news_returned", (newsList) =>{
+  socket.on("news_returned", (newsList, NewsObj) =>{
     //socket.to(currRoom).emit('update_news', gameObj.speed);
     currNews = newsList;
-    allGameRooms.set(currRoom,currNews)
-    console.log("this is the news" + currNews)
+    currNewsObj = NewsObj
+    allGameRooms.set(currRoom,[currNews,NewsObj])
   }); 
 
   
@@ -173,9 +170,9 @@ io.sockets.on('connection', function (socket) {
   socket.on("update", (gameObj) =>{
     if (gameStarted === false && io.sockets.adapter.rooms[currRoom].length == 2){
         gameStarted = true;
-        allGameRooms.set(currRoom, currNews)
+        allGameRooms.set(currRoom, [currNews, currNewsObj])
         io.in(currRoom).emit('start_game');
-        console.log("game started !!!!")
+        //console.log("game started !!!!")
     } else if (gameStarted){
       //console.log("update" + gameObj.speed + currRoom);
       socket.to(currRoom).emit('update_game', gameObj);
@@ -184,12 +181,12 @@ io.sockets.on('connection', function (socket) {
 
   socket.on("leaveGame", () =>{
     let rooms = io.sockets.adapter.rooms;
-    console.log("user left")
+    //console.log("user left")
     socket.leave(currRoom);
     currRoom = socket.id;
     let oldRoom = currRoom;
     if(!(oldRoom in rooms)){
-      console.log("room deleted" + oldRoom)
+      //console.log("room deleted" + oldRoom)
       closedRooms.delete(oldRoom)
       allGameRooms.delete(oldRoom)
     }
@@ -201,8 +198,8 @@ io.sockets.on('connection', function (socket) {
   
 
   socket.on("disconnect", () => {
-    console.log("a user dced");
-    console.log("user left")
+    //console.log("a user dced");
+    //console.log("user left")
     socket.leave(currRoom);
     let rooms = io.sockets.adapter.rooms;
     let oldRoom = currRoom;

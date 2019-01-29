@@ -28,6 +28,7 @@
   transition: all .7s;
   border-right: 1px solid #2f2f2f;
   border-left: 1px solid #2f2f2f;
+ 
 }
 
 .text-graphics{
@@ -73,7 +74,7 @@ flex: 4;
   flex: 1;
   font-size: 14px;
   line-height: 20px;
-  width: 17.5vh;
+  width: 17.5%;
   padding: 0 1% 0 1%;
   margin-bottom: 50px;
   transition: all .7s;

@@ -13,9 +13,9 @@ const router = express.Router();
 // api endpoints
 
 router.get('/fetchnews', function(req, res) {
-    request('https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey=' + process.env.NEWS_API_KEY, function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    request('https://newsapi.org/v2/top-headlines?country=us&apiKey=' + process.env.NEWS_API_KEY, function (error, response, body) {
+    //console.log('error:', error); // Print the error if one occurred
+    //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     big_json = JSON.parse(body);
 
     res.send(big_json);
@@ -38,19 +38,19 @@ router.get('/whoami', function(req, res) {
 router.put('/user', function(req, res) {
             User.findOneAndUpdate({_id: req.user._id}, {$push: {'all_games': {'score': req.body.score, 'time_stamp': req.body.timestamp}}}, {new: true}, function(err, user) {
                 if (!err) {
-                    console.log('success');
+                    //console.log('success');
                     if (req.body.score > user.best_score || !user.best_score){
                         user.update({$set: {'best_score': req.body.score}}, function(err, user) {
                             if (!err) {
-                                console.log('success again!'); 
+                                //console.log('success again!'); 
                             } else {
-                                console.log('oh no crycrycry'); 
+                                //console.log('oh no crycrycry'); 
                                 console.log(err);
                             }
                         })
                     }
                 } else {
-                    console.log('something went wrong');
+                    //console.log('something went wrong');
                     console.log(err); 
                 }
             });
@@ -78,7 +78,7 @@ router.get('/high_scores', function(req, res) {
         if (err) {
             console.log(err); 
         } else {
-            console.log("success");
+            //console.log("success");
             res.send(sorted); 
         }
     })
