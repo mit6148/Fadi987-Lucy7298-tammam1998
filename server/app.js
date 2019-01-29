@@ -61,11 +61,12 @@ app.get(['/profile/:id'], function (req, res) {
   console.log("hi"); 
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
-
-
-app.get(["/race", '/ranking'], (req, res) => { 
+  
+app.get(["/race", '/ranking', "/solorace"], (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
+
+
 
 // 404 route
 app.use(function(req, res, next) {
@@ -217,7 +218,6 @@ io.sockets.on('connection', function (socket) {
 
 
 });
-
 
 
 

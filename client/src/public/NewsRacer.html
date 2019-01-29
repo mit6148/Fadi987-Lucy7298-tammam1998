@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" href="./NewsRacer_files/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="./NewsRacer_files/css" rel="stylesheet" type="text/css">
+
+    <title>NewsRacer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+.center{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.navbar{
+    background: #f9f7f1;
+    text-align: center;
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+    color:#2f2f2f;
+}
+
+/* Border X get width  */
+div.nav-container
+{
+    margin: 0 auto;
+	text-align: center;
+}
+
+div.nav-container .nav-link
+{
+    text-decoration: none;
+    margin: 0px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
+
+div.nav-container .nav-drop
+{
+    text-decoration: none;
+    margin: 0px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
+
+
+div.borderXwidth .nav-drop:before, div.borderXwidth .nav-drop:after
+{
+    position: absolute;
+    opacity: 0;
+    width: 0%;
+    height: 2px;
+    content: '';
+    background: #2f2f2f;
+    transition: all 0.3s;
+}
+
+div.borderXwidth .nav-drop:before
+{
+    left: 0px;
+    top: 0px;
+}
+
+div.borderXwidth .nav-drop:after
+{
+    right: 0px;
+    bottom: 0px;
+}
+
+div.borderXwidth .nav-drop:hover:before, div.borderXwidth .nav-drop:hover:after
+{
+    opacity: 1;
+    width: 100%;
+}
+
+/*pullupdown
+*/
+
+div.pullUpDown .nav-link-pullupdown:before, div.pullUpDown .nav-link-pullupdown:after 
+{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0px;
+    content: '';
+    background: #2f2f2f;
+    opacity: 0.3;
+    transition: all 0.3s;
+}
+
+div.pullUpDown .nav-link-pullupdown:before
+{
+    top: 0px;
+} 
+
+div.pullUpDown .nav-link-pullupdown:after
+{
+    bottom: 0px;
+}
+
+div.pullUpDown .nav-link-pullupdown:hover:before, div.pullUpDown .nav-link-pullupdown:hover:after
+{
+    height: 100%;
+}
+</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Anton);</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Indie+Flower);</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Old+Standard+TT);</style><style type="text/css">@font-face {
+  font-family: 'oldNewsPaper';
+  src: url(/f907e59cc005d9b10d1a7c6bb7ce06de.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.game-container {
+    display: flex;
+    position: relative;
+  }
+  
+.left-half {
+  flex: 0.5;
+  font-size: 14px;
+  line-height: 20px;
+  width: 17.5%;
+  display: inline-block;
+  margin-left: 30px;
+  padding: 0 1% 0 1%;
+  vertical-align: top;
+  margin-bottom: 50px;
+  transition: all .7s;
+  border-right: 1px solid #2f2f2f;
+  border-left: 1px solid #2f2f2f;
+}
+
+.text-graphics{
+  font-family: 'Old Standard TT', serif;
+  margin-top : 30px;
+  vertical-align: text-top;
+}
+
+.middle-half {
+justify-content: center;
+flex: 2;
+}
+.game-div > div {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vh;
+  }
+
+.display-box-font{
+  color: #2f2f2f;;
+
+}
+
+.text-display-box{
+   font-family: 'oldNewsPaper';
+    margin-top: 3em;
+    margin-bottom: 1em;
+    box-sizing: border-box;
+    width: 90vh;
+    height : 40vh;
+    padding: 1rem;
+    border: 2px #2f2f2f solid;
+
+}
+
+.blur{
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.right-half {
+  flex: 0.5;
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  width: 17.5%;
+  padding: 0 1% 0 1%;
+  margin-bottom: 50px;
+  transition: all .7s;
+  justify-content: center;
+
+  
+  border-left: 2px #2f2f2f dashed;
+
+}
+
+</style><style type="text/css">/*Source https://codepen.io/silkine/pen/jldif
+*/
+
+body{
+    font-family: 'Droid Serif', serif;
+    font-size: 14px;
+    color: #2f2f2f;
+    background-color: #f9f7f1;
+}
+header{
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 80px;
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 72px;
+    margin-bottom: 20px;
+
+}
+p{
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.head{
+    text-align: center;
+    position: relative;
+
+
+}
+
+.headerobjectswrapper{
+    padding: 30px 0px 15px 0px
+}
+
+.subhead{
+    text-transform: uppercase;
+    border-bottom: 2px solid #2f2f2f;
+    border-top: 2px solid #2f2f2f;
+    padding: 0px 0 0px 0;
+
+}
+
+.content{
+    font-size: 0;
+    line-height: 0;
+    word-spacing: -.31em;
+    display: inline-block;
+    margin: 30px 2% 0 2%;
+
+
+}
+.collumns{
+
+}
+
+.collumn{
+    font-size: 14px;
+    line-height: 20px;
+    width: 17.5%;
+    display: inline-block;
+    padding: 0 1% 0 1%;
+    vertical-align: top;
+    margin-bottom: 50px;
+    transition: all .7s;
+}
+.collumn + .collumn { 
+  border-left: 1px solid #2f2f2f;
+}
+.collumn .headline{
+    text-align: center;
+    line-height: normal;
+    font-family: 'Playfair Display', serif;
+    display: block;
+    margin: 0 auto;
+
+
+}
+.collumn .headline.hl1{
+    font-weight: 700;
+    font-size: 30px;
+    text-transform: uppercase;
+    padding: 10px 0 10px 0;
+
+}
+
+.collumn .headline.hl2{
+    font-weight: 400;
+    font-style: italic;
+    font-size: 24px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+
+.collumn .headline.hl2:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}
+.collumn .headline.hl2:after{
+    border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 13px;
+    display: block;
+    margin: 0 auto;
+
+}
+
+.collumn .headline.hl3{
+    font-weight: 400;
+    font-style: italic;
+    font-size: 36px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl4{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl4:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}
+.collumn .headline.hl4:after{
+    border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 10px;
+    display: block;
+    margin: 0 auto;
+
+}
+
+.collumn .headline.hl5{
+    font-weight: 400;
+    font-size: 42px;
+    text-transform: uppercase;
+    font-style: italic;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl6{
+    font-weight: 400;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl6:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 7px;
+    display: block;
+    margin: 0 auto;
+}
+.collumn .headline.hl6:after{
+    border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 10px;
+    display: block;
+    margin: 0 auto;
+
+}
+.collumn .headline.hl7{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl8{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl9{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .headline.hl10{
+    font-weight: 700;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+.collumn .citation{
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    line-height: 44px;
+    /*font-style: italic;*/
+    text-align: center;
+    font-weight: 400;
+    display: block;
+    margin: 40px 0 40px 0;
+    font-feature-settings: "liga", "dlig";
+
+}
+.collumn .citation:before{
+    border-top: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 16px;
+    display: block;
+    margin: 0 auto;
+}
+.collumn .citation:after{
+    border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    height: 16px;
+    display: block;
+    margin: 0 auto;
+}
+.collumn .figure {
+	  margin: 0 0 20px;
+}
+.collumn .figcaption{
+	font-style: italic;
+	font-size: 12px;
+}
+.media {
+    -webkit-filter: sepia(80%) contrast(1) opacity(0.8);
+    filter: sepia(80%) grayscale(1) contrast(1) opacity(0.8);
+    mix-blend-mode: multiply;
+    width: 100%;
+}
+/*________________________________________________________________________________________________________________________________*/
+/*MEDIAQUERIES*/
+@media only all and (max-width: 1300px) {
+    .weatherforcastbox{
+        display: none;
+    }
+
+}
+@media only all and (max-width: 1200px) {
+    .collumn{
+        width: 31%;
+    }
+
+}
+    @media only all and (max-width: 900px) {
+    .collumn{
+        width: 47%;
+    }
+
+}
+@media only all and (max-width: 600px) {
+    .collumn{
+        width: 100%;
+    }
+	.collumn + .collumn {
+				border-left: none;
+      	border-bottom: 1px solid #2f2f2f;
+	}
+    header{
+        max-width: 320px;
+        font-size: 60px;
+        line-height: 54px;
+        overflow: hidden;
+    }
+
+}
+
+</style><style type="text/css">.game-over-div{
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+}
+
+.game-over-button{
+    background:#2f2f2f;
+    color:#f9f7f1;
+    background-color: rgba(0,0,0, 0.4);
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    
+
+  }
+  .game-over-button:hover{
+    background: #f9f7f1;
+    color:#2f2f2f;
+  }
+  .game-over-button:before,.game-over-button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #2f2f2f;
+    transition:400ms ease all;
+  }
+  .game-over-button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .game-over-button:hover:before,.game-over-button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  </style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Anton);</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Indie+Flower);</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Old+Standard+TT);</style><style type="text/css">@font-face {
+  font-family: 'oldNewsPaper';
+  src: url(/f907e59cc005d9b10d1a7c6bb7ce06de.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+.welcome li {
+    display: inline-block;
+    font-size: 80px;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.welcome ul {
+    position: absolute;
+    z-index: 2;
+    top: 70%;
+    width: 100%;
+    /* transform: translate(-50%, -50%); */
+}
+
+.welcome img {
+    width: 100%;
+    filter: blur(8px);
+}
+
+
+.sec_header {
+    font-size: 100px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-family: "oldNewsPaper";
+    z-index: 1;
+}
+
+.description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* body{
+    background: white;
+    padding-top: 10px;
+  }  */
+
+.welcome {
+    position: relative;
+}
+
+.about {
+    position: relative;
+    height: 800px;
+}
+
+
+h1.moving {
+    margin: 10px 0 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 30em;
+    animation: type 4s steps(60, end); 
+    margin: 0 auto;
+  }
+
+.welcome  a {
+     color: black; 
+  }
+
+.welcome a:hover{
+      color: black;
+      text-decoration: none;
+  }
+/*   
+  p:nth-child(2){
+    animation: type2 8s steps(60, end);
+  }
+  
+  span{
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes type{ 
+    from { width: 0; } 
+    to {width : 20;}
+  } 
+  
+  @keyframes type2{
+    0%{width: 0;}
+    50%{width: 0;}
+    100%{ width: 100; } 
+  } 
+  
+  @keyframes blink{
+    to{opacity: .0;}
+  }
+  
+  ::selection{
+    background: black;
+  } */
+</style><style type="text/css">
+
+.ranking-header {
+  text-align: center; 
+  letter-spacing: 1rem; 
+  
+}
+
+.headerdiv {
+    padding: 2rem 0rem 2rem 0rem;  
+}
+
+
+.topuserwords {
+  text-align: center; 
+}
+
+.topuserwords span {
+  display: inline-block;
+  width: 33%; 
+  padding: 5px;
+  
+}
+
+.topuserwords span + span{
+  border-left: 1px solid #2f2f2f; 
+}
+
+.topgamewords {
+  text-align: center; 
+}
+
+
+.gamespans {
+  display: inline-block;
+  width: 40%; 
+  padding: 2rem 1rem 2rem 1rem; 
+}
+
+.topgamewords .gamespans h2 {
+  font-weight: bold 
+}
+</style><style type="text/css">
+
+.profileheader {
+  text-align: center; 
+  letter-spacing: .5rem; 
+  font-weight: 900;
+  
+}
+
+.subheaderdiv {
+    padding: 2rem 0rem 2rem 0rem;  
+    text-align: center; 
+  
+}
+
+.headerdiv2 {
+    padding: 3rem 0rem 5rem 0rem;  
+    text-align: center; 
+    background-color:lightskyblue;  
+    margin-top: 3rem; 
+}
+
+
+
+.animal_left {
+  display: inline-block; 
+  width: 40%; 
+}
+
+.animal_right {
+  display: inline-block; 
+  width: 40%; 
+  vertical-align: middle;  
+}
+
+.animal_right_div{
+  height: 300px 
+}
+
+#gamesplayedfont {
+  font-weight: 500;
+  font-size: 3rem; 
+}
+
+.gamerecorddiv {  
+    text-align: center; 
+}
+
+.gamerecord {
+  display: inline-block; 
+  width: 33%; 
+  vertical-align: middle
+}
+
+.black{
+  color: black  
+}
+
+img.resize{
+  max-width: 50%;
+  max-height: 50%;
+}
+
+.flexcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: black; 
+  height: 18rem; 
+}
+
+.flexcontains {
+  width: 30%; 
+}
+
+.stattext {
+  text-align: center; 
+  color: white; 
+  padding-bottom: 1rem; 
+}</style></head>
+<body>
+<div id="root"><div><div class="head"><div class="headerobjectswrapper"><header>News Racer</header></div></div><div><div><nav class="navbar navbar-expand-md navbar-light bg-faded"><a href="http://localhost:5000/" class="navbar-brand"></a><button type="button" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse"><div class="navbar-inner pullUpDown nav-container borderXwidth"><ul class="nav navbar-nav mx-auto"><li class="nav-item"><a href="http://localhost:5000/auth/google/" class="nav-link nav-link-pullupdown">Profile</a></li><li><li class="dropdown nav-item"><div><a aria-haspopup="true" href="http://localhost:5000/#" class="dropdown-toggle nav-link nav-link-pullupdown" aria-expanded="false">Race</a><div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right"><button type="button" tabindex="0" role="menuitem" class="dropdown-item"><a class="nav-link nav-drop" href="http://localhost:5000/race">Multiplayer</a></button><button type="button" tabindex="0" role="menuitem" class="dropdown-item"><a class="nav-link nav-drop" href="http://localhost:5000/solorace">Solo</a></button><div tabindex="-1" class="dropdown-divider"></div><button type="button" tabindex="0" role="menuitem" class="dropdown-item">Reset</button></div></div></li></li><li class="nav-item"><a class="nav-link nav-link-pullupdown" href="http://localhost:5000/ranking">Leaderboard</a></li><li class="nav-item"><a href="http://localhost:5000/auth/google/" class="nav-link nav-link-pullupdown">Login</a></li></ul></div></div></nav></div></div><div><div class="welcome"><header class="sec_header">NewsRacer</header><img src="./NewsRacer_files/2f5ba9be5bcbfebe1181192b64eb36db.jpg"><h1 class="description">Put Something Here</h1><ul><li><a href="http://localhost:5000/auth/google">Login</a></li><li><a href="http://localhost:5000/#About">About</a></li></ul></div><div id="About" class="about"><header class="sec_header">About...</header><h1 class="description">Put something here</h1></div></div></div></div>
+<script type="text/javascript" src="./NewsRacer_files/bundle.js.download"></script>
+ 
+</body></html>
