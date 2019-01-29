@@ -237,6 +237,11 @@ p{
     mix-blend-mode: multiply;
     width: 100%;
 }
+
+.collumns-home {
+    padding-top: 1.5rem; 
+    width: 100%;  
+}
 /*________________________________________________________________________________________________________________________________*/
 /*MEDIAQUERIES*/
 @media only all and (max-width: 1300px) {
@@ -272,5 +277,9 @@ p{
         overflow: hidden;
     }
 
+}
+
+#homepage-wider {
+    width: 80vh; 
 }
 

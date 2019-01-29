@@ -30,10 +30,6 @@ export default class Animal extends React.Component {
             this.setState({animal: "turtle"})
         }
 
-        else if (this.props.best_score <= 80) {
-            this.setState({animal: "grasshopper"})
-        }
-
         else if (this.props.best_score <= 100) {
             this.setState({animal: "grasshopper"})
         }
