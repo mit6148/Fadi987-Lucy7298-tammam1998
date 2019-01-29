@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/newspaper.css";
+import "../css/homepage.css";
 import Typist from 'react-typist';
 import "react-typist/dist/Typist.css"
 
@@ -58,8 +59,14 @@ export default class HomePage extends React.Component {
                 <Typist>
                     We created this website after two weeks of web development. We learned a lot about code,
                     and we hope you enjoy reading the news stories in the game.
-                </Typist>
 
+                    <Typist.Delay ms ={500}/>
+                
+
+                <div className = "Lucy"> <Typist>Yunxing Liao</Typist></div>
+                <div className = "Tammam"><Typist>Tammam Mustafa</Typist></div>
+                <div className = "Fadi"><Typist>Fadi Atieh</Typist></div>
+                </Typist>
                 </div>
 
             </div>

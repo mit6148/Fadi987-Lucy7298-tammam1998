@@ -40,7 +40,7 @@ class NavBar extends Component {
                             <ul className="nav navbar-nav mx-auto">
                                 <li className="nav-item">
                                     {this.props.userInfo.name.includes('Guest') ? (
-                                        <a href={"/auth/google/"} className="nav-link nav-link-pullupdown">Profile</a>
+                                        ""
                                     ) : (
                                             <Link to={"/profile/" + this.props.userInfo._id} className="nav-link nav-link-pullupdown">Profile</Link>
                                         )}

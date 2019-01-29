@@ -315,7 +315,11 @@ export default class GameContainer extends React.Component {
                         </section>
                     </div>
                     {gameFinished}
+
+                    <div>News story fetching is powered by <a href="https://newsapi.org/">NewsAPI</a> </div> 
                 </div>
+
+
             );
         }
     }
