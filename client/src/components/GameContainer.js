@@ -7,6 +7,7 @@ import TextInput from "./game/TextInput"
 import Timer from "./game/Timer"
 import GameOver from "./game/GameOver"
 import io from 'socket.io-client';
+import GameProgress from "./game/GameProgress"
 import { userInfo } from "os";
 /*
  GameObj{
@@ -48,7 +49,7 @@ export default class GameContainer extends React.Component {
 
         this.state = {
             articleText: '', //article represent as a string
-            articleList: [], //The article reprsented as a List
+            articleList: [''], //The article reprsented as a List
             textSoFar: 0, // counter for the articleList for typed words
             currentTypedWord: '',
             startDate: new Date(),
@@ -72,21 +73,26 @@ export default class GameContainer extends React.Component {
 
     escapeHtml = (text) => {
         let map = {
-          '&amp;' : '&',
-          '&#38' : '&',
-          '&lt;' : '<',
-          '&gt;' : '>' ,
-          '&quot;' : '"',
-            '&#039;' : "'",
-          '&#160' : ' ',
-          '&thinsp' : ' ',
-          '&ensp' : ' ',
-            '&emsp' :  ' ',
-            '…' : '...',
-            '—' : '-'
-        };
-      
-        return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
+            '&amp;' : '&',
+            '&#38' : '&',
+            '&lt;' : '<',
+            '&gt;' : '>' ,
+            '&quot;' : '"',
+            '&apos;' : "'",
+              '&#039;' : "'",
+            '&#160' : ' ',
+            '&thinsp' : ' ',
+            '&ensp' : ' ',
+              '&emsp' :  ' ',
+              '…' : '...',
+              '—' : '-',
+              '\u2018' : "'",
+              '\u2019' : "'",
+              '\u201C' : '"',
+              '\u201D' : '"'
+          };
+        
+          return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });s
       }
 
     getNews = () => {
@@ -280,20 +286,25 @@ export default class GameContainer extends React.Component {
                                 </article>
                             </div>
                             <div className="right-half collumn">
-                                <div>
-                                    <h4>{this.state.minutes} : {this.state.seconds}</h4>
-                                    <h4>Me:</h4>
-                                    <h5>Speed: {this.state.speed} WPM</h5>
+                                <article>
+                                    <Timer seconds = {this.state.seconds} minutes = {this.state.minutes} />
+
+                                    <GameProgress
+                                                key = {'You'}
+                                                name = {'You'}
+                                                speed = {this.state.speed}
+                                                percent = {this.state.textSoFar/(this.state.articleList.length)} />
+
                                     {
                                         Object.keys(players).map((key, index) => (
-                                            <div key = {index} className="display-box-font">
-                                                <h4> {key}</h4>
-                                                <h5> speed: {players[key].speed}</h5>
-                                                <h5> percent: {players[key].percent}</h5>
-                                            </div>
-
-                                        ))}
-                                </div>
+                                            <GameProgress
+                                                key = {key}
+                                                name = {key}
+                                                speed = {players[key].speed}
+                                                percent = {players[key].percent/(this.state.articleList.length)} />
+                                        ))
+                                    }
+                                </article>
                             </div>
                         </section>
                     </div>

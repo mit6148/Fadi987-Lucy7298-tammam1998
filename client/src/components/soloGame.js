@@ -4,8 +4,9 @@ import "../css/newspaper.css";
 import TextDisplay from "./game/TextDisplay"
 import TextGraphics from "./game/TextGraphics"
 import TextInput from "./game/TextInput"
-import Timer from "./game/Timer"
+import GameProgress from "./game/GameProgress"
 import GameOver from "./game/GameOver"
+import Timer from "./game/Timer"
 import { userInfo } from "os";
 /*
  GameObj{
@@ -44,13 +45,18 @@ export default class SoloGame extends React.Component {
           '&lt;' : '<',
           '&gt;' : '>' ,
           '&quot;' : '"',
+          '&apos;' : "'",
             '&#039;' : "'",
           '&#160' : ' ',
           '&thinsp' : ' ',
           '&ensp' : ' ',
             '&emsp' :  ' ',
             '…' : '...',
-            '—' : '-'
+            '—' : '-',
+            '\u2018' : "'",
+            '\u2019' : "'",
+            '\u201C' : '"',
+            '\u201D' : '"'
         };
       
         return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
@@ -69,7 +75,6 @@ export default class SoloGame extends React.Component {
                     let txt = document.createElement("textarea");
                     txt.innerHTML = NewsObj.articles[rand].description;
                     let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
-
                     let contentList = content.split(" ");
                     const contentText = contentList.join(" ");
                     this.setState({
@@ -232,11 +237,14 @@ export default class SoloGame extends React.Component {
                             </article>
                         </div>
                         <div className="right-half collumn">
-                            <div>
-                                <h4>{this.state.minutes} : {this.state.seconds}</h4>
-                                <h4>You :</h4>
-                                <h5>Speed: {this.state.speed} WPM</h5>
-                            </div>
+                            <article>
+                                <Timer seconds = {this.state.seconds} minutes = {this.state.minutes} />
+
+                                <GameProgress
+                                    name = {this.props.username}
+                                    speed = {this.state.speed}
+                                    percent = {this.state.textSoFar/(this.state.articleList.length)} />
+                            </article>
                         </div>
                     </section>
                 </div>

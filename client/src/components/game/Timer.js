@@ -12,8 +12,8 @@ export default class Timer extends React.Component {
     render() {
         return(
             <div className = "display-box-font">
-                <h4>{this.props.minutes} : {this.props.seconds}</h4>
-                <h5>Speed: {this.props.speed} WPM</h5>
+                <h2 style = {{fontWeight: 'bold', textAlign:'center'}}>{this.props.minutes} : {this.props.seconds}</h2>
+                
             </div>
         );
     }       
