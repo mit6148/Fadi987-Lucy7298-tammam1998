@@ -17,7 +17,8 @@ class App extends React.Component {
     this.state = {
       userInfo: {
         name: "Guest" + (( Math.random() * 100000 ) | 0).toString()
-      }
+      }, 
+      id: null 
     };
   }
 
@@ -38,7 +39,8 @@ class App extends React.Component {
           console.log(userObj)
           if (userObj._id !== undefined) {
             this.setState({
-              userInfo: userObj
+              userInfo: userObj, 
+              id: userObj._id, 
             });
           } else {
             this.setState({
@@ -74,7 +76,7 @@ class App extends React.Component {
   
         <Switch>
             <Route exact path='/' render={(props) => <HomePage {...props} userInfo={this.state.userInfo} logout= {this.logout} />}/>
-            <Route exact path='/profile' render={(props) => <UserProfile {...props} userInfo={this.state.userInfo}/>} />
+            <Route exact path='/profile/:id/' component={UserProfile} />
             <Route exact path='/race' render={(props) => <GameContainer {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/solorace' render={(props) => <SoloGame {...props} username={this.state.userInfo.name} />} />
             <Route exact path='/ranking' component={Ranking} />

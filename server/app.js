@@ -35,10 +35,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get(['/profile'], function (req, res) {
-  res.sendFile(path.join(__dirname, '../socket/dist', 'index.html'));
-});
-
 // authentication routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 
@@ -61,9 +57,15 @@ app.get('/logout', function(req, res) {
 app.use('/api', api );
 app.use(express.static(publicPath));
 
+app.get(['/profile/:id'], function (req, res) {
+  console.log("hi"); 
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+});
+  
 app.get(["/race", '/ranking', "/solorace"], (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
+
 
 
 // 404 route
@@ -216,7 +218,6 @@ io.sockets.on('connection', function (socket) {
 
 
 });
-
 
 
 
