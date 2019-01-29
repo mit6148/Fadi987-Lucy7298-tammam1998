@@ -161,7 +161,7 @@ export default class SoloGame extends React.Component {
                 characters += this.state.articleList[i].length;
             }
 
-            let words = characters/5 + this.state.textSoFar;
+            let words = characters/5 + this.state.textSoFar - 1;
             this.setState({ speed: Math.floor(words / (this.state.minutes + (this.state.seconds / 60))) });
         }
 
