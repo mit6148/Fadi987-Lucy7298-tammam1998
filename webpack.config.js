@@ -54,10 +54,14 @@ module.exports = {
     contentBase: './client/dist',
     hot: true,
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': {"target": "http://localhost:3000",
+      "secure": false,
+      "changeOrigin": true,},
       '/auth': 'http://localhost:3000',
       '/logout': 'http://localhost:3000',
       '/solorace': 'http://localhost:3000',
+      '/ranking': 'http://localhost:3000',
+      '/profile': 'http://localhost:3000',
       "proxy": "http://localhost:3000/"
     }
   }

@@ -9,17 +9,20 @@ export default class Animal extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          animal: null, 
-          path: "../../public/rabbit.png", 
+          animal: "rabbit",
+          best_score: null, 
       };
+      this.getAnimal = this.getAnimal.bind(this); 
+      console.log(this.props.best_score); 
 
       console.log('hello'); 
-      console.log(this.props.userInfo); 
-
     }
 
     getAnimal = () => {
-        if (this.props.best_score<= 30) {
+        console.log("hiiiiiiiiii"); 
+        console.log(this.props.best_score); 
+        if (this.props.best_score <= 30) {
+            console.log(this.props.best_score); 
             this.setState({animal: "snail"})
         }
 
@@ -47,7 +50,7 @@ export default class Animal extends React.Component {
             this.setState({animal: "falcon"})
         }
 
-        else {
+        else if (this.props.best_score > 180) {
             this.setState({animal: "unicorn"})
             
         }
@@ -55,7 +58,8 @@ export default class Animal extends React.Component {
     }
 
     componentWillMount () {      
-        this.getAnimal = this.getAnimal.bind(this); 
+        
+        console.log(this.props.best_score); 
         this.getAnimal(); 
 
     }
@@ -64,6 +68,10 @@ export default class Animal extends React.Component {
   
     render() {
         //const location = "../../public/" + this.state.animal + ".png"; 
+        if(this.state.best_score !== this.props.best_score) {
+            this.setState({best_score: this.props.best_score}); 
+            this.getAnimal()
+        }
 
         return(
             <div className = "headerdiv2">

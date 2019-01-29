@@ -9,7 +9,7 @@ export default class UserProfile extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          name: null,
+          name: "",
           rank: null, 
           GameArray: null, 
           best_score: null, 
@@ -17,7 +17,6 @@ export default class UserProfile extends React.Component {
 
     console.log("hi"); 
 
-    this.mounted = true
     this.getRank = this.getRank.bind(this); 
     this.predicateBy = this.predicateBy.bind(this); 
     this.getRank(); 
@@ -45,14 +44,12 @@ export default class UserProfile extends React.Component {
                     .then ((sortedusers) => {
                         for (let i = 0; i < sortedusers.length; i ++) {
                             if (sortedusers[i]._id === this.props.match.params.id) {
-                                if (this.mounted){
-                                    this.setState({rank: i + 1});
-                                    console.log("this"); 
-                                    console.log(sortedusers[i]); 
-                                    this.setState({GameArray: sortedusers[i].all_games});
-                                    this.setState({best_score: sortedusers[i].best_score}); 
-                                    this.setState({name: sortedusers[i].name}); 
-                                } 
+                                this.setState({rank: i + 1});
+                                console.log("this"); 
+                                console.log(sortedusers[i]); 
+                                this.setState({GameArray: sortedusers[i].all_games});
+                                this.setState({best_score: sortedusers[i].best_score}); 
+                                this.setState({name: sortedusers[i].name}); 
                             }
                         }
                     })
@@ -62,13 +59,8 @@ export default class UserProfile extends React.Component {
 
 
     componentDidMount(){
-        this.mounted = true;
         this.getRank(); 
     }
-
-    componentWillUnmount(){
-        this.mounted = false;
-      }
   
     render() {
 
@@ -79,7 +71,7 @@ export default class UserProfile extends React.Component {
 
             for (const game of this.state.GameArray) {
                 a.push(<GameRecord
-                    key={1}
+                    key={game.time_stamp.toString()}
                     time = {game.time_stamp.toString().substring(0, 10)}
                     score={game.score}
                     />)
@@ -87,7 +79,7 @@ export default class UserProfile extends React.Component {
         }
         return(
             <div>
-                <Animal userInfo = {this.state.best_score} name = {this.state.name}/>
+                <Animal best_score = {this.state.best_score} name = {this.state.name}/>
 
 
                 <div className="flexcontainer">
