@@ -19,31 +19,31 @@ export default class Animal extends React.Component {
     }
 
     getAnimal = () => {
-        if (this.props.userInfo.best_score<= 30) {
+        if (this.props.best_score<= 30) {
             this.setState({animal: "snail"})
         }
 
-        else if (this.props.userInfo.best_score <= 50) {
+        else if (this.props.best_score <= 50) {
             this.setState({animal: "turtle"})
         }
 
-        else if (this.props.userInfo.best_score <= 80) {
+        else if (this.props.best_score <= 80) {
             this.setState({animal: "grasshopper"})
         }
 
-        else if (this.props.userInfo.best_score <= 100) {
+        else if (this.props.best_score <= 100) {
             this.setState({animal: "grasshopper"})
         }
 
-        else if (this.props.userInfo.best_score <= 120) {
+        else if (this.props.best_score <= 120) {
             this.setState({animal: "rabbit"})
         }
 
-        else if (this.props.userInfo.best_score <= 150) {
+        else if (this.props.best_score <= 150) {
             this.setState({animal: "kangaroo"})
         }
 
-        else if (this.props.userInfo.best_score <= 180) {
+        else if (this.props.best_score <= 180) {
             this.setState({animal: "falcon"})
         }
 
@@ -70,7 +70,7 @@ export default class Animal extends React.Component {
             <div className = "animal_left" ><img  className = "resize" src = {require("../../public/" + this.state.animal + ".png")}/></div>
             <div className = "animal_right">
                 <div className = "animal-right-div">
-                <h1 className = "header">Hi, {this.props.userInfo.name}</h1>
+                <h1 className = "header">Hi, {this.props.name}</h1>
                 <h1 className = "header">You're as fast as a {this.state.animal}!</h1>
                 </div>
             </div>
