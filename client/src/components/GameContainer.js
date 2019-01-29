@@ -59,8 +59,9 @@ export default class GameContainer extends React.Component {
             speed: 0,
             otherPlayers: {},
             waitBeforeStart: 3,
+            newsObj: {}
         };
-        this.getNews = this.getNews.bind(this);
+        //this.getNews = this.getNews.bind(this);
         this.socket.emit("creategame");
 
     }
@@ -110,7 +111,8 @@ export default class GameContainer extends React.Component {
                     this.socket.emit("news_returned", contentList);
                     this.setState({
                         articleText: contentText,
-                        articleList: contentList
+                        articleList: contentList,
+                        newsObj: NewsObj.articles[rand]
                     });
                 }
             );
@@ -252,6 +254,7 @@ export default class GameContainer extends React.Component {
 
             if (this.state.gameStatus === 2) {
                 gameFinished = <GameOver newGame={this.newGame}
+                    newsObj = {this.state.newsObj}
                     speed={this.state.speed}
                     sendScore={this.sendScore} />;
                 blurComponent = 'blur'
@@ -266,6 +269,7 @@ export default class GameContainer extends React.Component {
 
                             <div className="left-half collumn" >
                                 <TextGraphics
+                                    newsObj = {this.state.newsObj}
                                     typedTextSoFar={typedTextSoFar}
                                 />
                             </div>
@@ -283,6 +287,7 @@ export default class GameContainer extends React.Component {
                                         updateTypedWord={this.updateCurrentTypedWord} 
                                         disabled = {this.state.waitBeforeStart === 0 ? false: true}
                                         lastword = {this.state.textSoFar === this.state.articleList.length - 1 ? true:false} />
+                                        
                                 </article>
                             </div>
                             <div className="right-half collumn">

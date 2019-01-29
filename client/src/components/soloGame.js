@@ -33,8 +33,9 @@ export default class SoloGame extends React.Component {
             speed: 0,
             otherPlayers: {},
             waitBeforeStart: 3,
+            newsObj: {}
         };
-        this.getNews = this.getNews.bind(this);
+        //this.getNews = this.getNews.bind(this);
 
     }
 
@@ -76,10 +77,12 @@ export default class SoloGame extends React.Component {
                     txt.innerHTML = NewsObj.articles[rand].description;
                     let content = this.escapeHtml(txt.value).replace(/[\u00A0-\u00FF\u2022-\u2135]/g, '');
                     let contentList = content.split(" ");
+                    console.log(NewsObj)
                     const contentText = contentList.join(" ");
                     this.setState({
                         articleText: contentText,
-                        articleList: contentList
+                        articleList: contentList,
+                        newsObj: NewsObj.articles[rand]
                     });
                 }
             );
@@ -202,7 +205,8 @@ export default class SoloGame extends React.Component {
         if (this.state.gameStatus === 2) {
             gameFinished = <GameOver newGame={this.newGame}
                 speed={this.state.speed}
-                sendScore={this.sendScore} />;
+                sendScore={this.sendScore}
+                newsObj = {this.state.newsObj} />;
             blurComponent = 'blur'
         }
         
@@ -215,6 +219,7 @@ export default class SoloGame extends React.Component {
 
                         <div className="left-half collumn" >
                             <TextGraphics
+                                newsObj = {this.state.newsObj}
                                 typedTextSoFar={typedTextSoFar}
                             />
                         </div>

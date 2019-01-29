@@ -13,7 +13,7 @@ const router = express.Router();
 // api endpoints
 
 router.get('/fetchnews', function(req, res) {
-    request('https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey=' + process.env.NEWS_API_KEY, function (error, response, body) {
+    request('https://newsapi.org/v2/top-headlines?country=us&apiKey=' + process.env.NEWS_API_KEY, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     big_json = JSON.parse(body);

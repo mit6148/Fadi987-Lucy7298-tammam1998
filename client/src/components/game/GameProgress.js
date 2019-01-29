@@ -27,7 +27,7 @@ export default class GameProgress extends React.Component {
                                 fontSize: 10,
                             },
                             path: {
-                                stroke: '#2f2f2f',
+                                stroke: '#510030',
                             },
 
                         }}
