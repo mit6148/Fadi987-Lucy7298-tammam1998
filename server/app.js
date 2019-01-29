@@ -132,7 +132,12 @@ io.sockets.on('connection', function (socket) {
           socket.leave(socket.id)
           found_room = true;
           currRoom = room;
-          [currNews, currNewsObj] = allGameRooms.get(room);
+          x= allGameRooms.get(room);
+          if (x !== undefined){
+            currNews = x[0];
+            currNewsObj = x[1]
+          }
+          
           socket.emit("update_news", currNews, currNewsObj)
           break;
         }
@@ -178,6 +183,11 @@ io.sockets.on('connection', function (socket) {
       socket.to(currRoom).emit('update_game', gameObj);
     }
   })
+  
+  socket.on("askedToClose", () =>{
+    socket.emit('allowedToClose');
+  });
+
 
   socket.on("leaveGame", () =>{
     let rooms = io.sockets.adapter.rooms;

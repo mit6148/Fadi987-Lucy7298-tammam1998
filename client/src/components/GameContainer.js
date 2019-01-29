@@ -43,9 +43,16 @@ export default class GameContainer extends React.Component {
             });
         });
 
+        
+
         this.socket.on("get_news", () => {
             this.getNews();
-            console.log("was asked for news");
+            //console.log("was asked for news");
+        });
+
+        this.socket.on("allowedToClose", () => {
+            this.socket.close();
+            this.socket.open()
         });
 
         this.state = {
@@ -154,9 +161,11 @@ export default class GameContainer extends React.Component {
                     gameStatus: 2,
                     textSoFar: this.state.textSoFar + 1
                 });
-                this.socket.close();
-                this.socket.open()
                 this.updateTickStates();
+                this.socket.emit("update", { username: this.props.username, speed: this.state.speed, percent: this.state.textSoFar });
+                this.socket.emit('askToClose');
+                
+                
             }
         } else {
             this.setState({ textSoFar: this.state.textSoFar + 1 });
@@ -313,9 +322,14 @@ export default class GameContainer extends React.Component {
                                 </article>
                             </div>
                         </section>
+                    <div>News story fetching is powered by <a href="https://newsapi.org/">NewsAPI</a> </div> 
                     </div>
                     {gameFinished}
+
+                    
                 </div>
+
+
             );
         }
     }
