@@ -3,6 +3,7 @@
 <ul>
   <li> https://newsapi.org/
   <li> https://css-tricks.com/snippets/css/typewriter-effect/?fbclid=IwAR31EewE55tYa_SCDRIuIdZUibLZQoH_cooVxuojay7eNImpxkgyhhiiaCw
-  <li> 
-  <li>
+  <li> https://www.flaticon.com/
+  <li> https://codepen.io/silkine/pen/jldif
+  <li> https://www.npmjs.com/package/react-circular-progressbar
  </ul>
