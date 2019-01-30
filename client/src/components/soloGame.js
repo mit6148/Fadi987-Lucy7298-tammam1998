@@ -57,7 +57,8 @@ export default class SoloGame extends React.Component {
             '\u2018' : "'",
             '\u2019' : "'",
             '\u201C' : '"',
-            '\u201D' : '"'
+            '\u201D' : '"',
+            '–' : '-'
         };
       
         return text.replace(/[—…\u2018\u2019\u201C\u201D]/g, function(m) { return map[m]; });
