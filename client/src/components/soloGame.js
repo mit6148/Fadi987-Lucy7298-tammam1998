@@ -168,7 +168,7 @@ export default class SoloGame extends React.Component {
                 characters += this.state.articleList[i].length;
             }
 
-            let words = characters/5 + this.state.textSoFar;
+            let words = (characters + this.state.textSoFar)/5;
             this.setState({ speed: Math.floor(words / (this.state.minutes + (this.state.seconds / 60))) });
         }
 
@@ -205,7 +205,8 @@ export default class SoloGame extends React.Component {
             gameFinished = <GameOver newGame={this.newGame}
                 speed={this.state.speed}
                 sendScore={this.sendScore}
-                newsObj = {this.state.newsObj} />;
+                newsObj = {this.state.newsObj}
+                rank = {null} />;
             blurComponent = 'blur'
         }
         
@@ -251,10 +252,9 @@ export default class SoloGame extends React.Component {
                             </article>
                         </div>
                     </section>
+                    <div>News story fetching is powered by <a href="https://newsapi.org/">NewsAPI</a> </div> 
                 </div>
                 {gameFinished}
-
-                <div>News story fetching is powered by <a href="https://newsapi.org/">NewsAPI</a> </div> 
 
             </div>
         );

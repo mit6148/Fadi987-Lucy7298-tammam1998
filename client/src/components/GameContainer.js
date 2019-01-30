@@ -263,10 +263,19 @@ export default class GameContainer extends React.Component {
         }
 
             if (this.state.gameStatus === 2) {
+                let rank = 'You Ranked First!!!';
+                for (let i in players){
+                    if (players[i].speed > this.state.speed)
+                        rank = 'You Ranked Second';
+                    else if(players[i].speed == this.state.speed)
+                         rank = 'You Tied On First Place';
+                }
                 gameFinished = <GameOver newGame={this.newGame}
                     newsObj = {this.state.newsObj}
                     speed={this.state.speed}
-                    sendScore={this.sendScore} />;
+                    sendScore={this.sendScore} 
+                    rank = {rank}
+                    />;
                 blurComponent = 'blur'
             }
 
