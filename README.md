@@ -1,4 +1,5 @@
-# Fadi987-Lucy7298-tammam1998
+# NewsRacer
+A website for type racing and reading the news!
 <h2>Sources:</h2>
 <ul>
   <li> https://newsapi.org/
